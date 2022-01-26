@@ -192,9 +192,9 @@ augroup BUFWRITEHELPER
         let c = col(".")
         let l:ctw = <SID>CountTrailingWhites()
         if l:ctw > get(g:, 'maxNumTrailWhite', 50)
-            "prevents 'press enter to continue' dialog
             let l:choice = confirm("Found ".l:ctw." trailing whites - keep them?", "&Yes\n&No", 1)
             if l:choice == 2
+                "prevents 'press enter to continue' dialog
                 :set cmdheight=4
                 %s/\s\+$//e
             endif
