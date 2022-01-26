@@ -19,6 +19,9 @@ set wildmenu
 " can't select in them though...
 set wildmode=list:longest
 
+" limit pop-up height - currently set for limiting the spell suggestions
+set pumheight=10
+
 """"""""""
 " air-line
 " only load these extensions
