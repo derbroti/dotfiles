@@ -88,7 +88,9 @@ syntax on
 colorscheme smyck
 hi Comment cterm=italic
 
-" vim tabline and its colors
+" source my custom tabline and set its colors
+source ~/.vim/mytabbyline.vim
+set tabline=%!MyTabbyLine()
 set showtabline=2
 hi TabLineFill   ctermfg=DarkBlue
 hi TabLineSel    ctermfg=Blue  ctermbg=Black    cterm=None
