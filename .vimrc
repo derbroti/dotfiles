@@ -334,6 +334,10 @@ nnoremap <silent> <leader>6 :set spell! spelllang=en_us<CR>
 " suggest at most 10 corrections
 set spellsuggest=best,10
 set spellfile=~/.vim/spell/my-words.utf-8.add
+" based on: https://stackoverflow.com/q/25777205/2350114
+"           https://stackoverflow.com/a/25777332/2350114
+nnoremap <Leader>s i<C-x>s
+inoremap <expr> <CR> pumvisible() ? "<C-y><Esc>" : "<CR>"
 
 " do not set a clipboard - we manually manage the register
 set clipboard=
