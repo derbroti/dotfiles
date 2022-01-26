@@ -91,6 +91,7 @@ function! airline#extensions#coli#init(ext) abort
         autocmd InsertEnter * setlocal norelativenumber
         autocmd CursorMoved * :call airline#extensions#coli#MakeFirstLineAbs()
         autocmd WinEnter    * :call airline#extensions#coli#CheckWinEnterForLine()
+        " not needed
         "autocmd BufWinEnter * setlocal   cursorline | :call airline#extensions#coli#CheckWinEnterForLine()
         autocmd WinLeave    * :call airline#extensions#coli#CheckWinLeaveForLine()
      augroup END
@@ -112,7 +113,6 @@ function airline#extensions#coli#refresh() abort
 
   if get(w:, 'coli_last_mode', '') ==# m
     return ''
-    "return "cal:".g:debugme . " l:" .  line('.') . " sline: " .  get(w:, 'coli_search_line', -1)
   else
     let w:coli_mode_changed = 1
     let w:coli_last_mode = m
@@ -144,24 +144,16 @@ function airline#extensions#coli#refresh() abort
     hi CursorLineNr ctermbg=40 ctermfg=17 cterm=bold
     :redrawstatus
     let w:coli_mode_changed = 0
-    ""if get(w:, 'coli_search_line', -1) == 1 &&
-    "if line(".") == 1
-    "  setlocal norelativenumber
-  "elseif get(w:, 'coli_search_line', -1) != -1 && line(".") != 1
-  "  setlocal norelativenumber
-   " endif
-
   endif
 
   if ! ( m ==# 'comman' )
     let w:coli_search_line = -1
-    " if we cancel an inssearch and end up on line 1 again, we have to switch
+    " if we cancel an incsearch and end up on line 1 again, we have to switch
     if line(".") == 1
       setlocal norelativenumber
     endif
   endif
 
   return ''
-  "return "bot:".g:debugme . " l:" .  line('.') . " sline: " .  get(w:, 'coli_search_line', -1)
 endfunction
 
