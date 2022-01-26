@@ -312,6 +312,8 @@ vnoremap <silent> <C-Down> <S-g>
 
 " map leader to <space> (for custom shortcuts without modifier keys)
 let mapleader = ' '
+" deactivate space - in case we press leader and nothing else, we would otherwise move the cursor
+nnoremap <space> <nop>
 " tabs
 nnoremap <silent> <leader>c :tabnew<CR>
 nnoremap <silent> <leader><leader><Right> gt
