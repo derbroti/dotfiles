@@ -1,0 +1,27 @@
+[user]
+	name = Mirko
+	email = mpalmer@mpi-inf.mpg.de
+[core]
+	excludesfile = /Users/Mirko/.gitignore_global
+	precomposeUnicode = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[filter "media"]
+	clean = git media clean %f
+	smudge = git media smudge %f
+	required = true
+[commit]
+	template = /Users/Mirko/.stCommitMsg
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[pull]
+	ff = only
+[init]
+	defaultBranch = master
