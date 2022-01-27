@@ -106,9 +106,11 @@ fun s:statusColorHack()
     if tabpagewinnr(tabpagenr(), "$") > 1
         let g:airline#themes#dark#palette.normal['airline_c'][3]=235
         let g:airline#themes#dark#palette.normal['airline_x'][3]=235
+        let g:airline#themes#dark#palette.normal_modified['airline_c'][3]=235
     else
         let g:airline#themes#dark#palette.normal['airline_c'][3]=234
         let g:airline#themes#dark#palette.normal['airline_x'][3]=234
+        let g:airline#themes#dark#palette.normal_modified['airline_c'][3]=234
     endif
 endfun
 augroup StatusColWhenWin

@@ -94,7 +94,7 @@ let g:airline#themes#dark#palette.normal = airline#themes#generate_color_map(s:a
 " applied after g:airline#themes#dark#palette.normal, hence why only certain keys are
 " declared.
 let g:airline#themes#dark#palette.normal_modified = {
-      \ 'airline_c': [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
+      \ 'airline_c': [ '#ffffff' , '#5f005f' , 129     , 234      , ''     ] ,
       \ }
 
 
@@ -130,7 +130,7 @@ let s:airline_b_inactive = [ '#4e4e4e' , '#262626' , 239 , 235 , '' ]
 let s:airline_c_inactive = [ '#4e4e4e' , '#303030' , 239 , 235 , '' ]
 let g:airline#themes#dark#palette.inactive = airline#themes#generate_color_map(s:airline_a_inactive, s:airline_b_inactive, s:airline_c_inactive)
 let g:airline#themes#dark#palette.inactive_modified = {
-      \ 'airline_c': [ '#875faf' , '' , 92 , '' , '' ] ,
+      \ 'airline_c': [ '#875faf' , '' , 98 , '' , '' ] ,
       \ }
 
 " For commandline mode, we use the colors from normal mode, except the mode
