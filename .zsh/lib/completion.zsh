@@ -6,8 +6,6 @@ setopt auto_menu         # show completion menu on succesive tab press
 setopt complete_in_word
 setopt always_to_end
 
-WORDCHARS=''
-
 zmodload -i zsh/complist
 
 ## case-insensitive (all),partial-word and then substring completion

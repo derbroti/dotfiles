@@ -15,6 +15,8 @@ for config_file ($ZSH/lib/*.zsh) source $config_file
 # Extend Autocomplete Search Path
 fpath=($HOME/.zsh/lib/completions $fpath)
 
+WORDCHARS='*?_-[]~&;!$%^(){}<>'
+
 # Load and run compinit
 autoload -U compinit
 compinit -i
