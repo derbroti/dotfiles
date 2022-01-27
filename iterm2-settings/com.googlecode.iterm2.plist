@@ -1082,6 +1082,8 @@
 	<false/>
 	<key>EnableProxyIcon</key>
 	<false/>
+	<key>ExcludeBackgroundColorsFromCopiedStyle</key>
+	<true/>
 	<key>FastTrackpad</key>
 	<false/>
 	<key>FullHeightCursor</key>
@@ -2264,7 +2266,7 @@
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.13427402210884354</real>
+				<real>0.13427402079105377</real>
 				<key>Red Component</key>
 				<real>0.99999600648880005</real>
 			</dict>
