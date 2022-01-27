@@ -73,3 +73,15 @@ alias pip=/opt/homebrew/bin/pip3
 
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# The following lines were added by compinstall
+
+zstyle ':completion:*' completer _expand _complete _prefix
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}'
+zstyle ':completion:*' max-errors 0
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle :compinstall filename '/Users/Mirko/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
