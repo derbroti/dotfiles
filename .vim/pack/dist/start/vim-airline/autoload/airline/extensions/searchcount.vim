@@ -99,10 +99,12 @@ function airline#extensions#searchcount#status(recomp)
       let w:airline_idx_changed = 0
     endif
     " for jumping around while incsearching
-    if get(w:, 'coli_search_line', -1) == 1 && line(".") != 1  && ! get(w:, 'force_abs_line', 0)
+    if get(w:, 'coli_search_line', -1) == 1 && line(".") != 1 && ! get(w:, 'force_abs_line', 0)
       setlocal relativenumber
+      let w:coli_search_line = line(".")
     elseif get(w:, 'coli_search_line', -1) > 1 && line(".") == 1
       setlocal norelativenumber
+      let w:coli_search_line = line(".")
     endif
 
   catch
