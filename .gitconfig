@@ -4,7 +4,7 @@
 [core]
 	excludesfile = /Users/Mirko/.gitignore_global
 	precomposeUnicode = true
-	pager = less -+F -+X
+	pager = less -+X
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
