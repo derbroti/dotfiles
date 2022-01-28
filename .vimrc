@@ -114,6 +114,8 @@ augroup EscapeGoesBRRRR
     au InsertLeave * set timeoutlen=1000
 augroup END
 
+set cmdwinheight=10
+
 " source my custom tabline and set its colors
 source ~/.vim/mytabbyline.vim
 set tabline=%!MyTabbyLine()
