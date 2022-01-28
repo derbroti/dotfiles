@@ -97,7 +97,6 @@ let g:airline#themes#dark#palette.normal_modified = {
       \ 'airline_c': [ '#ffffff' , '#5f005f' , 92     , 234      , ''     ] ,
       \ }
 
-i
 let s:airline_a_insert = [ '#00005f' , '#00dfff' , 17  , 45  ]
 let s:airline_b_insert = [ '#ffffff' , '#005fff' , 255 , 27  ]
 let s:airline_c_insert = [ '#ffffff' , '#000080' , 15  , 17  ]
