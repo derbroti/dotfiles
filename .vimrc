@@ -3,6 +3,8 @@ set nocompatible
 "set term=iTerm2
 set term=xterm-256color
 
+set belloff=all
+
 " curly underline
 let &t_Cs = "\e[4:3m"
 let &t_Ce = "\e[4:0m"
