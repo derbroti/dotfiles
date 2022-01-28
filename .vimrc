@@ -187,9 +187,16 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-" <ctrl>+c clears search (hides it, the register still has the search term)
-nnoremap <nowait><silent><C-c> :nohl<bar>:call airline#extensions#coli#Cccheck()<CR>
+" <ctrl>+c clears search (hides it, reg keeps the value) + clear linenumber highlight
+nnoremap <expr><silent><C-c> v:hlsearch ? ":nohl<bar>:call airline#extensions#coli#Cccheck()<CR>" : "<C-c>"
+" restore original C-c function when in cmd window (the expr map does not really work here)
+au CmdwinEnter * nnoremap <C-c> <C-c>
+au CmdWinLeave * nnoremap <expr><silent><C-c> v:hlsearch ? ":nohl<bar>:call airline#extensions#coli#Cccheck()<CR>" : "<C-c>"
+
+" normal->insert->(insert)->search->C-c->linenumber fail
+" in short: when pressing C-c from insert mode we need to check the abs/rel numbering
 inoremap <nowait><silent><C-c> <ESC><bar>:call airline#extensions#coli#Cccheck()<CR>
+
 hi Search cterm=NONE ctermfg=232 ctermbg=13
 hi SearchBar cterm=NONE ctermfg=13 ctermbg=0
 hi IncSearch cterm=NONE ctermfg=0 ctermbg=207
