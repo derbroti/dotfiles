@@ -1185,6 +1185,17 @@
 					<key>Version</key>
 					<integer>1</integer>
 				</dict>
+				<key>0x3-0x200000-0x4c</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[2~</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0x3c-0x80000-0x32</key>
 				<dict>
 					<key>Action</key>
