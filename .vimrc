@@ -9,7 +9,11 @@ let &t_Ce = "\e[4:0m"
 
 set encoding=utf-8
 
-let g:debug_me = ""
+syntax on
+colorscheme smyck
+hi Comment cterm=italic
+
+"let g:debug_me = ""
 
 " do not show 'search hit BOTTOM'
 set shortmess+=s
@@ -76,6 +80,31 @@ let s:portable = expand('<sfile>:p:h') . '/.vim'
 let &runtimepath = printf('%s,%s,%s/after', s:portable, &runtimepath, s:portable)
 " echo &runtimepath
 
+" enable file plugin, detection and indent
+filetype plugin indent on
+
+"" line widths and such
+"  will be visible in all but normal mode (see coli.vim)
+let g:airline#extensions#coli#columns=100
+hi ColorColumn ctermbg=235
+"set width one less, so the columns line stays clear
+set textwidth=99
+" the default
+set formatoptions=croql
+set list
+set listchars=tab:•◦,trail:•
+" Backspace over indentation, end-of-line, and start-of-line.
+set backspace=indent,eol,start
+
+" make uses real tabs
+au FileType make set noexpandtab
+" Go uses tabs
+au FileType go set noexpandtab tabstop=4 shiftwidth=4
+" make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
+au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+au FIleType python let g:airline#extensions#coli#columns=80
+au FileType ruby   set softtabstop=2 tabstop=2 shiftwidth=2
+
 " switch mode goes brrrr
 set timeoutlen=1000
 set ttimeoutlen=5
@@ -84,12 +113,6 @@ augroup EscapeGoesBRRRR
     au InsertEnter * set timeoutlen=0
     au InsertLeave * set timeoutlen=1000
 augroup END
-
-filetype plugin indent on
-
-syntax on
-colorscheme smyck
-hi Comment cterm=italic
 
 " source my custom tabline and set its colors
 source ~/.vim/mytabbyline.vim
@@ -147,14 +170,15 @@ set nowritebackup
 " undo goes BRRRRRR
 set undolevels=9999
 
-set wrap linebreak
+set wrap
+set linebreak
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 set nofoldenable
 
-" prints ''x line yanked'' etc for X starting from from 1
+" prints ''x line yanked'' etc for x starting from 1
 set report=0
 
 set hlsearch
@@ -167,12 +191,6 @@ inoremap <nowait><silent><C-c> <ESC><bar>:call airline#extensions#coli#Cccheck()
 hi Search cterm=NONE ctermfg=232 ctermbg=13
 hi SearchBar cterm=NONE ctermfg=13 ctermbg=0
 hi IncSearch cterm=NONE ctermfg=0 ctermbg=207
-
-set list
-set listchars=tab:•◦,trail:•
-
-" Backspace over indentation, end-of-line, and start-of-line.
-set backspace=indent,eol,start
 
 " from https://vi.stackexchange.com/a/20661/40602
 fun! s:CountTrailingWhites()
@@ -209,24 +227,6 @@ augroup BUFWRITEHELPER
     endfun
     au BufWritePre * :call <SID>StripTrailingWhitespaces()
 augroup END
-
-"" line widths and such
-"  will be visible in all but normal mode (see coli.vim)
-let g:airline#extensions#coli#columns=100
-hi ColorColumn ctermbg=235
-
-"set width one less, so the columns line stays clear
-set textwidth=99
-" the default
-set formatoptions=croql
-
-" make uses real tabs
-au FileType make set noexpandtab
-" Go uses tabs
-au FileType go set noexpandtab tabstop=4 shiftwidth=4
-" make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
-au FileType ruby   set softtabstop=2 tabstop=2 shiftwidth=2
 
 " don't show mode or status - airline does this
 " but do show command
