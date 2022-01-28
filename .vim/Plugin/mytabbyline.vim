@@ -50,7 +50,7 @@ function! MyTabbyLine()
     "??? "let n .= fnamemodify(bufname(buflist[tabpagewinnr(i + 1) - 1]), ':t')
     let n = substitute(n, '|$', '', '')
 
-    let s.= '.'
+    let s.= ')'
 
     if i + 1 == tabpagenr()
       let s .= '%#TabLineSel#'

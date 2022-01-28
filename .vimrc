@@ -118,8 +118,7 @@ augroup END
 
 set cmdwinheight=10
 
-" source my custom tabline and set its colors
-source ~/.vim/mytabbyline.vim
+" set my tabline and set its colors
 set tabline=%!MyTabbyLine()
 set showtabline=2
 hi TabLineFill   ctermfg=DarkBlue
