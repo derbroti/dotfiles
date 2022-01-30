@@ -29,15 +29,14 @@ export PATH=$PATH:$GOPATH/bin
 
 export CORRECT_IGNORE_FILE='.*'
 
-set-window-title() {
-  # /Users/clessg/projects/dotfiles -> ~/p/dotfiles
-  window_title="\e]0;${PWD/#"$HOME"/~}\a"
-  echo -ne "$window_title"
-}
-
-PR_TITLEBAR=''
-set-window-title
-add-zsh-hook precmd set-window-title
+# set-window-title() {
+#   window_title="\e]0;${PWD/#"$HOME"/~}\a"
+#   echo -ne "$window_title"
+# }
+#
+# PR_TITLEBAR=''
+# set-window-title
+# add-zsh-hook precmd set-window-title
 
 unsetopt correct_all
 #setopt correct
