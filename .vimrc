@@ -3,6 +3,9 @@ set nocompatible
 "set term=iTerm2
 set term=xterm-256color
 
+" do not allow code exec in modelines
+set nomodelineexpr
+
 set belloff=all
 
 " curly underline
@@ -93,6 +96,7 @@ hi ColorColumn ctermbg=235
 set textwidth=99
 " the default
 set formatoptions=croql
+
 set list
 set listchars=tab:•◦,trail:•
 " Backspace over indentation, end-of-line, and start-of-line.
@@ -153,8 +157,8 @@ catch
 endtry
 
 set number
-"set relativenumber
-hi CursorLineNr ctermbg=234 ctermfg=11 cterm=None
+"expect to start at line 1 -> abs mode
+set norelativenumber
 
 " toggle rel/abs line numbers (in normal mode only)
 " code: ^[[23;2~ mapped to: <cmd>+<esc>
@@ -353,3 +357,4 @@ inoremap <expr> <CR> pumvisible() ? "<C-y><Esc>" : "<CR>"
 
 " do not set a clipboard - we manually manage the register
 set clipboard=
+
