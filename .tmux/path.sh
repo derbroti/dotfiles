@@ -1,4 +1,5 @@
 #!/bin/sh
+# MIT License. Copyright (c) 2022 Mirko Palmer
 
 win_len=$2
 left_len=$3

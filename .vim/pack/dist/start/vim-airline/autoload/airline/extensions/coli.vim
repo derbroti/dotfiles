@@ -1,4 +1,5 @@
 " vim: et ts=2 sts=2 sw=2
+" MIT License. Copyright (c) 2022 Mirko Palmer
 
 scriptencoding utf-8
 

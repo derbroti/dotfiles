@@ -1,5 +1,6 @@
 " MIT License. Copyright (c) 2013-2021 Bailey Ling et al.
 " This extension is inspired by vim-anzu <https://github.com/osyo-manga/vim-anzu>.
+" Modified 2022 by Mirko Palmer
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
