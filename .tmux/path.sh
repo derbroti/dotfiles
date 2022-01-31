@@ -1,6 +1,9 @@
 #!/bin/sh
 # MIT License. Copyright (c) 2022 Mirko Palmer
 
+#     <=11<=22<=33<=44<=55<=66<=77<=88<=100
+bars=(' ' '▁' '▂' '▃' '▄' '▅' '▆' '▇' '█')
+
 win_len=$2
 left_len=$3
 center_len=$(($win_len - $left_len))
@@ -37,5 +40,23 @@ then
     now=$(date +"%H:%M")
 fi
 
-echo "${mascot}#[bg=black,fg=green] ${here} #[fg=black]#[bg=white] ${now} "
+cpu=0
+# update every 5 seconds
+if [ $(($(date +"%-S") % 5)) -eq 0 ]
+then
+    # we have 8 threads, 9 indicator levels form 0 to 8 -> 0/12 = 0 100/12 = 8
+    cpu=$(ps -A -o %cpu | awk '{s+=$1} END {printf "%.0f\n", (s/8) / 12}')
+    echo $cpu > /tmp/tmux_cpu_usage
+else
+    if [ -f /tmp/tmux_cpu_usage ]
+    then
+        cpu=$(cat /tmp/tmux_cpu_usage)
+    fi
+fi
+
+bat=$(pmset -g batt | grep -o "[0-9]\{1,3\}%")
+bat=${bat%?}
+bat=$(( $bat / 12 ))
+
+echo "${mascot}#[bg=black,fg=green] ${here} #[fg=black,bg=white] ${now} #[fg=red,bg=black]${bars[$cpu]}#[fg=orange,bg=black]${bars[$bat]}"
 
