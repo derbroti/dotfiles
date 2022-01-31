@@ -214,6 +214,8 @@ fun! s:CountTrailingWhites()
   return matchstr( cnt, '\d\+' )
 endfun
 
+command W :noautocmd :w
+
 let g:maxNumTrailWhite = 5
 augroup BUFWRITEHELPER
     autocmd!
