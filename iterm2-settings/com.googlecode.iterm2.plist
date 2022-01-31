@@ -1220,6 +1220,17 @@
 					<key>Version</key>
 					<integer>1</integer>
 				</dict>
+				<key>0x63-0xc0000-0x8</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[1;3S</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0x6b-0x100000-0x28</key>
 				<dict>
 					<key>Action</key>
@@ -1500,6 +1511,17 @@
 					<integer>10</integer>
 					<key>Text</key>
 					<string>[1;2S</string>
+				</dict>
+				<key>0xf707-0x80000-0x76</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[1;3S</string>
+					<key>Version</key>
+					<integer>2</integer>
 				</dict>
 				<key>0xf708-0x20000</key>
 				<dict>
