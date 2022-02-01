@@ -66,7 +66,9 @@ export PICO_SDK_PATH=/Users/Mirko/Projects/rpi-pico/pico-sdk
 
 alias brew86="arch -x86_64 /usr/local/bin/brew"
 alias brew="/opt/homebrew/bin/brew"
-export HOMEBREW_GITHUB_API_TOKEN=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
+
+source ~/.github.token
+
 export PATH=/opt/homebrew/bin:$PATH
 
 alias python=/opt/homebrew/bin/python3
