@@ -125,10 +125,12 @@ set cmdwinheight=10
 " set my tabline and set its colors
 set tabline=%!MyTabbyLine()
 set showtabline=2
+" initial - will be replaced on focus change in coli.vim
 hi TabLineFill   ctermfg=DarkBlue
-hi TabLineSel    ctermfg=Blue  ctermbg=Black    cterm=None
 hi TabLine       ctermfg=Black ctermbg=DarkBlue cterm=None
-hi TabLineSelMod ctermfg=231 ctermbg=53 cterm=None
+hi TabLineSel    ctermfg=Blue  ctermbg=Black    cterm=None
+hi TabLineSelMod ctermfg=129   ctermbg=Black    cterm=None
+hi TabLineMod    ctermfg=201   ctermbg=DarkBlue cterm=Bold
 
 " make the status bar more visible if we have one than one window open
 " makes it also more visible if we split vertically, but well... you can't have it all...

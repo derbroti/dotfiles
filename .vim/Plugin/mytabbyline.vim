@@ -1,3 +1,5 @@
+" vim: et ts=2 sts=2 sw=2
+
 " based on: https://stackoverflow.com/a/33765365/2350114
 function! MyTabbyLine()
   let s = ''
@@ -10,7 +12,7 @@ function! MyTabbyLine()
       let s .= '%#TabLine#'
     endif
     if sel
-      let s .= '%#TabLineSel#' " WildMenu
+      let s .= '%#TabLineSel#' " WildMenu #???
     else
       let s .= '%#TabLine#'
     endif
@@ -30,18 +32,24 @@ function! MyTabbyLine()
         " let n .= '[Q]'
       elseif getbufvar(b, "&modifiable")
         if getbufvar(b, "&modified")
-          let n .= '%#TabLineSelMod#'
+          if i + 1 == tabpagenr()
+            let n .= ' %#TabLineSelMod#'
+          else
+            let n .= ' %#TabLineMod#'
+          endif
+        else
+          let n .= ' '
         endif
         " add buffer names
         let bn = bufname(b)
         if bn == ''
           let bn = '[No Name]'
         endif
-        let n .= ' '.fnamemodify(bn, ':t').' '
+        let n .= fnamemodify(bn, ':t')
         if i + 1 == tabpagenr()
-          let n .= '%#TabLineSel#'
+          let n .= '%#TabLineSel# '
         else
-          let n .= '%#TabLine#'
+          let n .= '%#TabLine# '
         endif
 
         let n .= '|' " pathshorten(bufname(b))
