@@ -91,6 +91,14 @@ let &runtimepath = printf('%s,%s,%s/after', s:portable, &runtimepath, s:portable
 " enable file plugin, detection and indent
 filetype plugin indent on
 
+" do not draw a vsplit indicator
+" but use color
+set fillchars+=vert:\ ,
+hi VertSplit ctermbg=235
+" colors the bottom intersection
+hi StatusLineNC ctermbg=235
+hi StatusLine ctermbg=235
+
 "" line widths and such
 "  will be visible in all but normal mode (see coli.vim)
 let g:airline#extensions#coli#columns=100
