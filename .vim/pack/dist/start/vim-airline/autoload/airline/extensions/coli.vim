@@ -197,7 +197,9 @@ function airline#extensions#coli#refresh() abort
     let w:coli_mode_changed = 0
   endif
 
-  if get(w:, 'coli_last_mode', '') ==# m
+  " we typically start in normal mode, so do not trigger a premature change
+  " prevents that the vim intro screen vanishes
+  if get(w:, 'coli_last_mode', 'normal') ==# m
     return ''
   else
     let w:coli_mode_changed = 1
