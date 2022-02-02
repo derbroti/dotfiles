@@ -129,7 +129,7 @@ let s:airline_b_inactive = [ '#4e4e4e' , '#262626' , 239 , 235 , '' ]
 let s:airline_c_inactive = [ '#4e4e4e' , '#303030' , 239 , 235 , '' ]
 let g:airline#themes#dark#palette.inactive = airline#themes#generate_color_map(s:airline_a_inactive, s:airline_b_inactive, s:airline_c_inactive)
 let g:airline#themes#dark#palette.inactive_modified = {
-      \ 'airline_c': [ '#875faf' , '' , 96 , '' , '' ] ,
+      \ 'airline_c': [ '#875faf' , '' , 97 , '' , '' ] ,
       \ }
 
 " For commandline mode, we use the colors from normal mode, except the mode
