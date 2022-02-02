@@ -1,29 +1,48 @@
-# autoload -U add-zsh-hook
-#autoload -Uz vcs_info
-
-# # enable VCS systems you use
-#zstyle ':vcs_info:*' enable git svn
-#zstyle ':vcs_info:*:prompt:*' check-for-changes true
-
 setopt prompt_subst
 autoload -U promptinit
 promptinit
 
+# based on: https://gist.github.com/lenary/7df679b241b1331ae6b3318136dffa0e
+map_exit_code() {
+    local description
 
-# Look at http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Version-Control-Information
-# for mor options
-#zstyle ':vcs_info:*' check-for-changes true
-#zstyle ':vcs_info:*' unstagedstr '*'   # display this when there are unstaged changes
-#zstyle ':vcs_info:*' stagedstr '+'  # display this when there are staged changes
-#zstyle ':vcs_info:*' actionformats '[%b%|%a%c%u%]%f'
-#zstyle ':vcs_info:*' formats ':%b%c%u%f'
+    case ${1} in
+      # Signals are 128 + signal value, we translate back to the signal name
+      $((128 + 1))  ) description="SIGHUP";;
+      $((128 + 2))  ) description="SIGINT";;
+      $((128 + 3))  ) description="SIGQUIT";;
+      $((128 + 4))  ) description="SIGILL";;
+      $((128 + 5))  ) description="SIGTRAP";;
+      $((128 + 6))  ) description="SIGABRT";;
+      $((128 + 7))  ) description="SIGEMT";;
+      $((128 + 8))  ) description="SIGFPE";;
+      $((128 + 9))  ) description="SIGKILL";;
+      $((128 + 10)) ) description="SIGBUS";;
+      $((128 + 11)) ) description="SIGSEGV";;
+      $((128 + 12)) ) description="SIGSYS";;
+      $((128 + 13)) ) description="SIGPIPE";;
+      $((128 + 14)) ) description="SIGALRM";;
+      $((128 + 15)) ) description="SIGTERM";;
+      $((128 + 16)) ) description="SIGURG";;
+      $((128 + 17)) ) description="SIGSTOP";;
+      $((128 + 18)) ) description="SIGTSTP";;
+      $((128 + 19)) ) description="SIGCONT";;
+      $((128 + 20)) ) description="SIGCHLD";;
+      $((128 + 21)) ) description="SIGTTIN";;
+      $((128 + 22)) ) description="SIGTTOU";;
+      $((128 + 23)) ) description="SIGIO";;
+      $((128 + 24)) ) description="SIGXCPU";;
+      $((128 + 25)) ) description="SIGXFSZ";;
+      $((128 + 26)) ) description="SIGVTALRM";;
+      $((128 + 27)) ) description="SIGPROF";;
+      $((128 + 28)) ) description="SIGWINCH";;
+      $((128 + 29)) ) description="SIGINFO";;
+      $((128 + 30)) ) description="SIGUSR1";;
+      $((128 + 31)) ) description="SIGUSR2";;
+      *)              description="${1}";;
+    esac
+    echo -n $description
+}
 
-
-#zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
-#precmd () { vcs_info }
-
-#PROMPT='[%n@%m %~${vcs_info_msg_0_}] %{$reset_color%}'
-#PROMPT='[%n@%m ${vcs_info_msg_0_}] %{$reset_color%}'
-
-#PROMPT='%F{252}(%f%F{244}%D{%H%M%S}%f%F{252})%f%F{246}%n%f%F{252}@%f%B%F{104}%m%b%f:%(4~|…/%3~|%~)%# '
-PROMPT='%F{246}%n%f%F{252}@%f%B%F{104}%m%b%f:%(4~|…/%3~|%~)%# '
+RPROMPT='%(0?..%F{88}$(map_exit_code $?)%f)'
+PROMPT='%(!.%F{124}.%F{246})%n%F{252}@%f%B%F{104}%m%b%f:%(4~|…/%3~|%~)%# '

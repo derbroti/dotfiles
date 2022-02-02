@@ -4,6 +4,10 @@ else
     export ZSH=~/.zsh
 fi
 
+# have 1 trailing space in rprompt
+# my screen resolution results in an uneven tmux split... moving stuff around is otherwise ugly
+ZLE_RPROMPT_INDENT=1
+
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
