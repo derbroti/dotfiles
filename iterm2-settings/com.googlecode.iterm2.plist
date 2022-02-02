@@ -740,6 +740,8 @@
 	<false/>
 	<key>FixMouseWheel</key>
 	<false/>
+	<key>FocusReportingEnabled</key>
+	<true/>
 	<key>FullHeightCursor</key>
 	<true/>
 	<key>GlobalKeyMap</key>
@@ -1176,6 +1178,17 @@
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
+				<key>0x1b-0x80000-0x35</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[18;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0x20-0x80000-0x31</key>
 				<dict>
 					<key>Action</key>
@@ -1530,6 +1543,17 @@
 					<key>Text</key>
 					<string>[15;2~</string>
 				</dict>
+				<key>0xf708-0x80000-0x60</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[15;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0xf709-0x20000</key>
 				<dict>
 					<key>Action</key>
@@ -1537,12 +1561,34 @@
 					<key>Text</key>
 					<string>[17;2~</string>
 				</dict>
+				<key>0xf709-0x80000-0x61</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[17;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0xf70a-0x20000</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
 					<key>Text</key>
 					<string>[18;2~</string>
+				</dict>
+				<key>0xf70a-0x80000-0x62</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[18;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
 				</dict>
 				<key>0xf70b-0x20000</key>
 				<dict>
@@ -1578,6 +1624,28 @@
 					<integer>10</integer>
 					<key>Text</key>
 					<string>[24;2~</string>
+				</dict>
+				<key>0xf72c-0x40000-0x74</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[15;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+				<key>0xf72d-0x40000-0x79</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[17;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
 				</dict>
 			</dict>
 			<key>Link Color</key>
