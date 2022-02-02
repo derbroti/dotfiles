@@ -52,10 +52,10 @@ bindkey "^[[3~" delete-char
 bindkey "^[3;5~" delete-char
 bindkey "\e[3~" delete-char
 
-
 # open safari window in split screen - when terminal is in full screen
 toggleSafariSplit() {
     /Users/Mirko/.macos/toggle_safari.sh
 }
 zle -N toggleSafariSplit
-bindkey '\e[1;3R' toggleSafariSplit
+# mapped to ctrl-Esc (see iterm keymap)
+bindkey "^[[1;3R" toggleSafariSplit

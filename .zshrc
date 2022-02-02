@@ -1,3 +1,4 @@
+#???
 if [[ -v ZDOTDIR ]]; then
     export ZSH=$ZDOTDIR/.zsh
 else
@@ -21,16 +22,13 @@ fpath=($HOME/.zsh/lib/completions $fpath)
 
 WORDCHARS='*?_-[]~&;!$%^(){}<>'
 
-# Load and run compinit
-autoload -U compinit
-compinit -i
-
-PATH=/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # Go Path related exports
 export GOPATH=/Users/Mirko/Projects/GO
 export PATH=$PATH:$GOPATH/bin
 
+#???
 export CORRECT_IGNORE_FILE='.*'
 
 # set-window-title() {
@@ -42,11 +40,13 @@ export CORRECT_IGNORE_FILE='.*'
 # set-window-title
 # add-zsh-hook precmd set-window-title
 
+#???
 unsetopt correct_all
 #setopt correct
 
 # ignore commands starting with a #
-set -k
+# set -k
+setopt interactivecomments
 
 # alias kbl="kb list"
 # alias kbe="kb edit"
@@ -88,5 +88,5 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 zstyle :compinstall filename '/Users/Mirko/.zshrc'
 
 autoload -Uz compinit
-compinit
+compinit -i
 # End of lines added by compinstall
