@@ -40,6 +40,9 @@ let g:airline_extensions = ['netrw', 'term', 'whitespace', 'po', 'keymap', 'sear
 " the default - modified, slightly, by me
 let g:airline_theme='dark'
 
+" react to focus events
+let g:airline_focuslost_inactive = 1
+
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
