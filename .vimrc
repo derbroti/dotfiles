@@ -313,6 +313,10 @@ inoremap <silent> <ScrollWheelDown> <C-x><C-e>
 vnoremap <silent> <ScrollWheelUp> <C-y>
 vnoremap <silent> <ScrollWheelDown> <C-e>
 
+" C-y is our tmux prefix, so do not scroll when we press it in vim
+" scroll-wheel scrolling still works
+nnoremap <C-y> <nop>
+
 " enable ctrl+z (suspend to background) while in insert mode
 " in all other modes it works automagically
 inoremap <silent> <C-z> <C-o>:stop<cr>
