@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # MIT License. Copyright (c) 2022 Mirko Palmer
 
 #     <=11<=22<=33<=44<=55<=66<=77<=88<=100
@@ -6,11 +6,15 @@ bars=(' ' '▁' '▂' '▃' '▄' '▅' '▆' '▇' '█')
 
 win_len=$2
 left_len=$3
+
+client_flags=$4
+client_key_table=$5
+
 center_len=$(($win_len - $left_len))
 
 MAXLEN=$(($center_len * 3 / 5))
 
-now=$(date +"%a %d %b %H:%M:%S")
+now=" $(date +"%a %d %b %H:%M:%S") "
 now_len=21
 here=$1
 here_len=${#here}
@@ -19,14 +23,27 @@ here_base_len=${#here_base}
 here_slashes=$(echo $here | tr -d -c '/')
 here_slashes_len=${#here_slashes}
 here_min_len=$(( $here_base_len + 2 * $here_slashes_len - 1 )) # minus 1 as last slash has no ...
-mascot="(づ｡◕‿‿◕｡)づ"
-mascot_len=12
+
+if [ -n "$SSH_CLIENT" ]
+then
+    mascot="( •_•)O"
+    mascot_len=7
+else
+    mascot="(づ｡◕‿‿◕｡)づ"
+    mascot_len=12
+fi
 
 max_len=$(($MAXLEN - $now_len - $mascot_len))
 
+# if tmux does not give any path, we try ourselves
+if [[ $here = '' ]]
+then
+    here=" $(pwd) "
+fi
+
 while [ $here_len -gt $max_len ]
 do
-    here=$(echo $here | sed 's#[^/…][^/]*/#…/#')
+    here=$(echo -n $here | sed 's#[^/…][^/]*/#…/#')
     here_len=${#here}
     if [ $here_len -eq $here_min_len ]
     then
@@ -34,6 +51,7 @@ do
         break
     fi
 done
+here=" ${here} "
 
 if [ $(($here_min_len + $now_len)) -gt $MAXLEN ]
 then
@@ -54,9 +72,37 @@ else
     fi
 fi
 
-bat=$(pmset -g batt | grep -o "[0-9]\{1,3\}%")
-bat=${bat%?}
-bat=$(( $bat / 12 ))
+off=""
+if [[ $client_key_table == "off" || $client_flags != *"focused"* ]]
+then
+    color1="#[bg=colour235,fg=colour239]"
+    color2="#[bg=colour16,fg=colour242]"
+    color3="#[fg=colour245,bg=black]"
+    color4="#[fg=colour240,bg=black]"
+    if [[ $client_key_table == "off" ]]
+    then
+        off="#[bg=red,fg=white] OFF #[default] "
+    fi
+else
+    color1="#[bg=black,fg=green]"
+    color2="#[fg=black,bg=white]"
+    color3="#[fg=red,bg=black]"
+    color4="#[fg=orange,bg=black]"
+fi
 
-echo "${mascot}#[bg=black,fg=green] ${here} #[fg=black,bg=white] ${now} #[fg=red,bg=black]${bars[$cpu]}#[fg=orange,bg=black]${bars[$bat]}"
+bat=""
+# do not show battery when run on server
+if [ -z "$SSH_CLIENT" ]
+then
+    bat=$(pmset -g batt | grep -o "[0-9]\{1,3\}%")
+    bat=${bat%?}
+    bat=$(( $bat / 12 ))
+    bat=${bars[$bat]}
+else
+    now=" "
+    color4="#[fg=colour94,bg=black]"
+    bat='≀'
+fi
+
+echo "${off}${mascot}${color1}${here}${color2}${now}${color3}${bars[$cpu]}${color4}$bat"
 
