@@ -1,12 +1,12 @@
 This repository contains my dotfiles.
 
 Besides the usual configs this includes:
-- modifications to vim-airline to show vim's "sub-modes"
+- modifications to [vim-airline](https://github.com/vim-airline/vim-airline) to show vim's "sub-modes"
 e.g. NORMAL->INSERT->(INSERT)->VISUAL will now be marked as "I-VISUAL"
 
 - a marginally altered airline dark.vim colorscheme
 
-- "coli.vim" my own airline extension to vim-airline that colors the current line indicator depending on the mode
+- "coli.vim" my own airline extension to vim-airline that colors the current line indicator depending on the mode (compatible with focus events!)
 
 -- plus switchable rel/abs line numbers (works with vim windows!)
 
