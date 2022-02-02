@@ -7,12 +7,22 @@ bindkey -e
 
 # do not want #bindkey '\ew' kill-region
 
+# -s is "in string, out string"
 # run ls by pressing <esc>+l
 bindkey -s '\el' "ls -hal\n"
 # do "cd .." with <esc>+.
 bindkey -s '\e.' "..\n"
 # go to last directory with <esc>+-
 bindkey -s '\e-' "cd -\n"
+
+# defined in history.zsh
+# <up/down> searches in local history
+bindkey "^[[A" up-line-or-local-history
+bindkey "^[[B" down-line-or-local-history
+# ctrl + pageup/down (aka <fn>+<up/down>) searches global history # mapped in iterm
+bindkey "^[[15;3~" up-line-or-history
+bindkey "^[[17;3~" down-line-or-history
+
 
 # <fn>+<up/down> (aka <Page Up/Down>): use already typed text for search in history
 bindkey "^[[5~" up-line-or-search

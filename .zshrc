@@ -41,9 +41,6 @@ export CORRECT_IGNORE_FILE='.*'
 unsetopt correct_all
 #setopt correct
 
-unsetopt INC_APPEND_HISTORY
-setopt APPEND_HISTORY
-
 # ignore commands starting with a #
 set -k
 
