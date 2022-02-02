@@ -33,6 +33,7 @@ function! airline#init#bootstrap()
   call s:check_defined('g:airline_exclude_preview', 0)
 
   call s:check_defined('g:airline_mode_map', {})
+  " derbroti 2022: added more map entries
   call extend(g:airline_mode_map, {
         \ '__' : '------',
         \ 'multi' : 'MULTI',
@@ -149,6 +150,8 @@ function! airline#init#bootstrap()
   call airline#parts#define_function('iminsert', 'airline#parts#iminsert')
   call airline#parts#define_function('paste', 'airline#parts#paste')
   call airline#parts#define_function('crypt', 'airline#parts#crypt')
+  " derbroti 2022: split spell icon and language prints (keep icon in airline_a, move
+  " language to airline_z
   call airline#parts#define_function('spell_icon', 'airline#parts#spell_icon')
   call airline#parts#define_function('spell_lang', 'airline#parts#spell_lang')
   call airline#parts#define_function('filetype', 'airline#parts#filetype')
@@ -215,6 +218,7 @@ endfunction
 function! airline#init#sections()
   let spc = g:airline_symbols.space
   if !exists('g:airline_section_a')
+    " derbroti 2022: print only spell icon
     let g:airline_section_a = airline#section#create_left(['mode', 'crypt', 'paste', 'keymap', 'spell_icon', 'capslock', 'xkblayout', 'iminsert'])
   endif
   if !exists('g:airline_section_b')
@@ -240,6 +244,7 @@ function! airline#init#sections()
   if !exists('g:airline_section_y')
     let g:airline_section_y = airline#section#create_right(['ffenc'])
   endif
+  " derbroti 2022: print spell language here
   if !exists('g:airline_section_z')
     if airline#util#winwidth() > 79
       let g:airline_section_z = airline#section#create(['windowswap', 'obsession', 'spell_lang', '%p%%', 'linenr', 'maxlinenr', 'colnr'])

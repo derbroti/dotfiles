@@ -64,6 +64,7 @@ function! airline#parts#paste()
   return g:airline_detect_paste && &paste ? g:airline_symbols.paste : ''
 endfunction
 
+" derbroti 2022: separate prints for spell icon and language
 function! airline#parts#spell_icon()
   if g:airline_detect_spell && (&spell || (exists('g:airline_spell_check_command') && eval(g:airline_spell_check_command)))
     return g:airline_symbols.spell
@@ -71,6 +72,7 @@ function! airline#parts#spell_icon()
   return ''
 endfunction
 
+" see comment above
 function! airline#parts#spell_lang()
   let spelllang = g:airline_detect_spelllang ? printf("[%s] ", substitute(&spelllang, ',', '/', 'g')) : ''
   if g:airline_detect_spell && (&spell || (exists('g:airline_spell_check_command') && eval(g:airline_spell_check_command)))

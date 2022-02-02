@@ -467,6 +467,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'searchcount')
   endif
 
+  " derbroti 2022: add coli plugin
   if get(g:, 'airline#extensions#coli#enabled', 0)
     call airline#extensions#coli#init(s:ext)
     call add(s:loaded_ext, 'coli')

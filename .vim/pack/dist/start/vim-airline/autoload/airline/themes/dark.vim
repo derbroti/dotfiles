@@ -1,4 +1,5 @@
 " MIT License. Copyright (c) 2013-2021 Bailey Ling et al.
+" Modified by Mirko Palmer (derbroti) 2022 - minor color changes
 " vim: et ts=2 sts=2 sw=2 tw=80
 
 scriptencoding utf-8

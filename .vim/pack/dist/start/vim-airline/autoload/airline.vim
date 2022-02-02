@@ -226,6 +226,7 @@ function! airline#check_mode(winnr)
       let mode = ['insert']
     elseif m[0] ==# "i"
       let mode = ['insert']
+    " derbroti 2022 - only check first 2 chars, as there are 3 leter Rv modes
     elseif m[0:1] ==# "Rv"
       let mode =['replace']
     elseif m[0] ==# "R"
@@ -249,6 +250,7 @@ function! airline#check_mode(winnr)
       let m = 'multi'
     endif
 
+    " derbroti 2022: allows to keep track of vim's 'sub-modes'
     if (get(w:, 'airline_2last_m', '')[0] ==# 'R' &&
       \ get(w:, 'airline_lastmode', '')[0:5] ==# 'insert' &&
       \ mode[0] ==# 'visual')
