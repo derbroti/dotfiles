@@ -17,7 +17,14 @@ EOF
     exit 0
 fi
 
-echo "\nPlease hold"
+tmux_client_id=$(tmux display -p "#{client_pid}")
+
+if [ -z $tmux_client_id ]
+then
+    echo "\nPlease hold"
+else
+    tmux display-popup -h11 -w50 "echo \"\n\n\n\n                   Please Hold\n\n\n\"" &
+fi
 
 ret=$(/usr/bin/osascript <<EOF
 tell application "iTerm2" to set windowBounds to bounds of front window
@@ -62,8 +69,18 @@ EOF
     # drag from middle to 5/6 of screenX to shrink the window
     /opt/homebrew/bin/cliclick -e3 -r dd:840,525 w:100 du:1400,525 w:250
     /bin/sleep 0.25
-    echo "Done - move alone!"
+    if [ -z $tmux_client_id ]
+    then
+        echo "Done - move alone!"
+    else
+        tmux display-popup -C
+    fi
 else
-    echo "Not in full screen!"
+    if [ -z $tmux_client_id ]
+    then
+        echo "Not in full-screen!"
+    else
+        tmux display-popup -h15 -w60 "echo \"\n\n\n\n\n\n                Not in full-screen!\""
+    fi
 fi
 
