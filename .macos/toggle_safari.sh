@@ -35,7 +35,7 @@ if item 4 of windowBounds is 1050 then
     end tell
     delay 0.5
     tell application "Safari"
-        make new document at beginning with properties {URL:"https://google.com"}
+        make new document at beginning with properties {URL:"https://google.de"}
         set window_id to id of window 1
     end tell
     delay 0.5
