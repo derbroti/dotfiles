@@ -174,8 +174,8 @@ set number
 set norelativenumber
 
 " toggle rel/abs line numbers (in normal mode only)
-" code: ^[[23;2~ mapped to: <cmd>+<esc>
-nnoremap <silent> <S-F11> :call airline#extensions#coli#toggleAbsRel()<CR>
+" code: ^[[18;2~ mapped to: <alt>+<esc>
+nnoremap <silent> <M-F7> :call airline#extensions#coli#toggleAbsRel()<CR>
 inoremap <S-F11> <nop>
 vnoremap <S-F11> <nop>
 
