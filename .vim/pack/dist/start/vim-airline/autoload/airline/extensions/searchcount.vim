@@ -52,7 +52,7 @@ function airline#extensions#searchcount#refresh()
 endfun
 
 function airline#extensions#searchcount#apply(...)
-  call airline#extensions#append_to_section('y',
+  call airline#extensions#append_to_section('z',
         \ '%{ airline#extensions#searchcount#refresh() }')
 endfunction
 
