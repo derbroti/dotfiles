@@ -1,0 +1,10 @@
+[
+    { "keys": ["SHIFT_UP"], "type": "tkwidgets", "command": "five_up" },
+    { "keys": ["SHIFT_DOWN"], "type": "tkwidgets", "command": "five_down" },
+    { "keys": ["CTRL_UP"], "type": "tkwidgets", "command": "top" },
+    { "keys": ["CTRL_DOWN"], "type": "tkwidgets", "command": "bottom" },
+    { "keys": ["LEFT"], "type": "function", "command": "focus_previous" },
+    { "keys": ["RIGHT"], "type": "function", "command": "focus_next" },
+    { "keys": ["CTRL_R"], "type": "exec", "command": "sync" }
+]
+
