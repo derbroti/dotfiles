@@ -61,7 +61,10 @@ export PICO_SDK_PATH=/Users/Mirko/Projects/rpi-pico/pico-sdk
 
 source $ZSH/.github.token
 
-export PATH=/opt/homebrew/bin:$PATH
+# arm brew
+export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+# more recent bc
+export PATH="/opt/homebrew/opt/bc/bin:$PATH"
 
 LS_COMPL_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:or=40;31;01:"
 zstyle ':completion:*' list-colors ${(s.:.)LS_COMPL_COLORS}
@@ -78,3 +81,4 @@ zstyle :compinstall filename '/Users/Mirko/.zshrc'
 autoload -Uz compinit
 compinit -i
 # End of lines added by compinstall
+
