@@ -75,3 +75,19 @@ bindkey "^[[3~" delete-char
 # zle -N toggleSafariSplit
 # # mapped to ctrl-Esc (see iterm keymap)
 # bindkey "^[[1;3R" toggleSafariSplit
+
+
+# deactivate S-F11, M-F8, M-F9 (tmux takes hold of them on its own)
+# used for forwarding tmux-disable toggle (nested sessions)
+bindkey -s "^[[23;2~" ''
+bindkey -s "^[[19;3~" ''
+bindkey -s "^[[20;3~" ''
+
+# deactivate M-F10, M-F11, C-F{1-4} - vim uses them
+bindkey -s "^[[21;3~" ''
+bindkey -s "^[[23;3~" ''
+
+bindkey -s "^[[1;5P" ''
+bindkey -s "^[[1;5Q" ''
+bindkey -s "^[[1;5R" ''
+bindkey -s "^[[1;5S" ''
