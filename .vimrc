@@ -42,11 +42,17 @@ set wildmode=list:longest
 " limit pop-up height - currently set for limiting the spell suggestions
 set pumheight=10
 
+" keep 1000 entries in the history (useful for searching)
+set history=1000
+
+" keep split views equal in size
+autocmd VimResized * wincmd =
+
 """"""""""
 " air-line
 " only load these extensions
 " original: ['quickfix', 'netrw', 'term', 'whitespace', 'po', 'wordcount', 'keymap']
-let g:airline_extensions = ['netrw', 'term', 'whitespace', 'po', 'keymap', 'searchcount', 'coli']
+let g:airline_extensions = ['netrw', 'term', 'whitespace', 'searchcount', 'coli']
 
 " the default - modified, slightly, by me
 let g:airline_theme='dark'
@@ -73,31 +79,108 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.notexists = 'Ɇ'
 let g:airline_symbols.readonly = '[ro]'
-let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_symbols.whitespace = ''
+let g:airline_symbols.ellipsis = '…'
+
+" mode names
+let g:airline_mode_map = {
+    \ 'niI' : 'I-(NORMAL)',
+    \ 'niR' : 'R-(NORMAL)',
+    \ 'niV' : 'vR-(NORMAL)',
+    \ 'ic' : 'INSERT COMPL GEN',
+    \ 'Rc' : 'REPLACE COMP GEN'
+    \ }
+
+" algo1: - do not do: <tab><space><tab>
+"        - do not have more spaces than tab-width
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
+let g:airline#extensions#whitespace#mixed_indent_format = "[%s]…"
+let g:airline#extensions#whitespace#mixed_indent_file_format = "[%s]⋮"
 
 """""""
 
-" let g:statuscalled = 0
-" let g:refreshcalled = 0
-" let g:refresh_hard_called = 0
-" let g:tablinecalled = 0
-" function! MyTabLine()
-"     let g:tablinecalled += 1
-"     let s = w:airline_last_m ." ".g:refresh_hard_called. " " .g:refreshcalled. " " .g:statuscalled . " ".g:tablinecalled. " | reg:\"".getreg('/')."\" (". len(getreg('/')).") status:\"".'%{ airline#extensions#searchcount#status(1) }'. "\""
-"     return s
-" endfun
-" set tabline=%!MyTabLine()
+"""""""
+" netrw
+"
 
+" tree
+let g:netrw_liststyle = 3
+"disable i (changing liststyle)
+au FileType netrw nnoremap <buffer> i <nop>
+" open file in previous window
+let g:netrw_browse_split = 4
+" open file on right side
+let g:netrw_altv = 1
+" 20%
+let g:netrw_winsize = 20
+" no header in file list
+let g:netrw_banner = 0
+" more colors
+let g:netrw_special_syntax = 1
+" highlight line
+let g:netrw_bufsettings = "noma nomod nonu nobl nowrap ro nornu cursorlineopt=line"
+"do not sort by folders first
+let g:netrw_sort_sequence = ''
+" always get fresh dir listing
+let g:netrw_fastbrowse = 0
+" show errors only
+let g:netrw_errorlvl = 2
+" show errors as echoerr
+let g:netrw_use_errorwindow = 0
+" do not open external program
+let g:netrw_nogx = 1
+" disable x map completely
+au FileType netrw nnoremap <buffer> x <nop>
+" disable bookmark history?! - throws errors..
+let g:netrw_dirhistmax = 0
+" show preview in vert-split
+let g:netrw_preview = 1
+" disable mouse buttons - see below for our replacements
+let g:netrw_mousemaps = 0
 
-" TODO check if still needed - anyrc?
-" https://stackoverflow.com/a/3384476/2350114
-" set default 'runtimepath' (without ~/.vim folders)
-let &runtimepath = printf('%s/vimfiles,%s,%s/vimfiles/after', $VIM, $VIMRUNTIME, $VIM)
-" what is the name of the directory containing this file?
-let s:portable = expand('<sfile>:p:h') . '/.vim'
-" add the directory to 'runtimepath'
-let &runtimepath = printf('%s,%s,%s/after', s:portable, &runtimepath, s:portable)
-" echo &runtimepath
+" split new buffer to the right
+set splitright
+
+""""""
+
+" do not yank everything into clipboard, only */+ reg
+set clipboard=
+
+if has('independent_clip_regs')
+    set icr=star,plus
+
+    " based on: https://sunaku.github.io/tmux-yank-osc52.html
+    augroup RemoteYank
+        autocmd!
+        fun Yank(text) abort
+            if ! empty($SSH_CLIENT)
+                if ! has('clipboard_working') && ! has('independent_clip_regs') && (v:event.regname == '')
+                    echohl ErrorMsg | echo "Err: Neither a working clipboard nor a working star reg found!" | echohl None
+                elseif v:event.regname == '*'
+                    let escape = system('~/.anyrc/.anyrc.d/.tmux/yank.sh', a:text)
+                    if v:shell_error
+                        echohl ErrorMsg | echo "Err: \"".escape."\"" | echohl None
+                    else
+                        if empty(a:text)
+                            call setreg(v:event.regname, escape)
+                        endif
+                    endif
+                endif
+            endif
+        endfun
+
+        fun WriteYank() abort
+            call Yank(getreg(v:event.regname))
+        endfun
+
+        fun ReadYank() abort
+            call Yank('')
+        endfun
+
+        autocmd WriteClipPost * call WriteYank()
+        autocmd ReadClipPre   * call ReadYank()
+    augroup END
+endif
 
 " enable file plugin, detection and indent
 filetype plugin indent on
@@ -106,9 +189,9 @@ filetype plugin indent on
 " but use color
 set fillchars+=vert:\ ,
 hi VertSplit ctermbg=235
+hi StatusLine ctermbg=235
 " colors the bottom intersection
 hi StatusLineNC ctermbg=235
-hi StatusLine ctermbg=235
 
 "" line widths and such
 "  will be visible in all but normal mode (see coli.vim)
@@ -156,6 +239,7 @@ hi TabLineMod    ctermfg=201   ctermbg=DarkBlue cterm=Bold
 
 " make the status bar more visible if we have one than one window open
 " makes it also more visible if we split vertically, but well... you can't have it all...
+augroup StatusColWhenWin
 fun s:statusColorHack()
     if tabpagewinnr(tabpagenr(), "$") > 1
         let g:airline#themes#dark#palette.normal['airline_c'][3]=235
@@ -167,7 +251,6 @@ fun s:statusColorHack()
         let g:airline#themes#dark#palette.normal_modified['airline_c'][3]=234
     endif
 endfun
-augroup StatusColWhenWin
     autocmd!
     au WinEnter * :call <SID>statusColorHack()
     au WinLeave * :call <SID>statusColorHack()
@@ -180,12 +263,16 @@ try
 catch
 endtry
 
+" insert mode cursor: bar; other modes cursor: block
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
 set number
 "expect to start at line 1 -> abs mode
 set norelativenumber
 
 " toggle rel/abs line numbers (in normal mode only)
-" code: ^[[18;2~ mapped to: <alt>+<esc>
+" M-F7 code: ^[[18;2~ mapped to: <alt>+<esc>
 nnoremap <silent> <M-F7> :call airline#extensions#coli#toggleAbsRel()<CR>
 inoremap <S-F11> <nop>
 vnoremap <S-F11> <nop>
@@ -217,7 +304,7 @@ set incsearch
 set ignorecase
 set smartcase
 " <ctrl>+c clears search (hides it, reg keeps the value) + clear linenumber highlight
-nnoremap <expr><silent><C-c> v:hlsearch ? ":nohl<bar>:call airline#extensions#coli#Cccheck()<CR>" : "<C-c>"
+nnoremap <expr><silent><C-c> v:hlsearch ? ":nohl<bar>:call airline#extensions#coli#Cccheck()<CR><bar>:call <SID>NetrwAutoHScroll()<cr>" : "<C-c>"
 " restore original C-c function when in cmd window (the expr map does not really work here)
 au CmdwinEnter * nnoremap <C-c> <C-c>
 au CmdWinLeave * nnoremap <expr><silent><C-c> v:hlsearch ? ":nohl<bar>:call airline#extensions#coli#Cccheck()<CR>" : "<C-c>"
@@ -227,8 +314,9 @@ au CmdWinLeave * nnoremap <expr><silent><C-c> v:hlsearch ? ":nohl<bar>:call airl
 inoremap <nowait><silent><C-c> <ESC><bar>:call airline#extensions#coli#Cccheck()<CR>
 
 hi Search cterm=NONE ctermfg=232 ctermbg=13
-hi SearchBar cterm=NONE ctermfg=13 ctermbg=0
 hi IncSearch cterm=NONE ctermfg=0 ctermbg=207
+" initial - will be replaced on focus change in coli.vim
+hi SearchBar cterm=NONE ctermfg=13 ctermbg=0
 
 " from https://vi.stackexchange.com/a/20661/40602
 fun! s:CountTrailingWhites()
@@ -252,7 +340,7 @@ augroup BUFWRITEHELPER
         let c = col(".")
         let l:ctw = <SID>CountTrailingWhites()
         if l:ctw > get(g:, 'maxNumTrailWhite', 50)
-            let l:choice = confirm("Found ".l:ctw." trailing whites - keep them?", "&Yes\n&No", 1)
+            let l:choice = confirm("Found ".l:ctw." trailing whites - keep them?", "&Yes\n&No\n&Cancel", 1)
             if l:choice == 2
                 "prevents 'press enter to continue' dialog
                 :set cmdheight=4
@@ -335,16 +423,16 @@ inoremap <silent> <C-z> <C-o>:stop<cr>
 " move cursor multiple lines (compare tmux settings)
 nnoremap <S-Up> 5k
 nnoremap <S-Down> 5j
-inoremap <S-Up> <C-o>5k
-inoremap <S-Down> <C-o>5j
+inoremap <silent> <S-Up> <C-o>5k
+inoremap <silent> <S-Down> <C-o>5j
 vnoremap <S-Up> 5k
 vnoremap <S-Down> 5j
-" super fast S-F9 code:  ^[[20;2~ mapped to: <shift>+<alt>+<up>
+" super fast S-F9  code: ^[[20;2~ mapped to: <shift>+<alt>+<up>
 "            S-F10 code: ^[[21;2~ mapped to: <shift>+<alt>+<down>
 nnoremap <S-F9> 10k
 nnoremap <S-F10> 10j
-inoremap <S-F9> <C-o>10k
-inoremap <S-F10>  <C-o>10j
+inoremap <silent> <S-F9> <C-o>10k
+inoremap <silent> <S-F10>  <C-o>10j
 vnoremap <S-F9> 10k
 vnoremap <S-F10> 10j
 
@@ -356,20 +444,60 @@ inoremap <silent> <C-Down> <C-o>:$<CR>
 vnoremap <silent> <C-Up> gg<CR>
 vnoremap <silent> <C-Down> <S-g>
 
+" make consistent to zsh and macos
+" <alt>+<left/right> jumps words
+nnoremap <M-Left> b
+nnoremap <M-Right> e
+inoremap <silent><nowait> <M-Left> <c-o>b
+inoremap <silent><nowait> <M-Right> <c-o>e
+vnoremap <M-Left> b
+vnoremap <M-Right> e
+cnoremap <M-Left> <S-Left>
+cnoremap <M-Right> <S-Right>
+" <ctrl>+<left/right> jumps to start/end of line
+nnoremap <C-Left> 0
+nnoremap <C-Right> $
+inoremap <silent><nowait> <C-Left> <c-o>0
+inoremap <silent><nowait> <C-Right> <c-o>$
+vnoremap <C-Left> 0
+vnoremap <C-Right> $
+cnoremap <C-Left> <C-b>
+cnoremap <C-Right> <C-e>
+
+" shift+mouseclick scrolls down?!
+" TODO this does not fix it...
+" nnoremap <S-leftmouse> <nop>
+" inoremap <S-leftmouse> <nop>
+" vnoremap <S-leftmouse> <nop>
+
+" toggle paste mode
+nnoremap <silent> <ins> :set paste!<cr>
+
+" toggle replacing tabs with spaces
+nnoremap <silent> [1;88P :set expandtab!<cr>
+" TODO why does this still trigger expandtab???
+inoremap <silent> [1;88P <nop>
+
 " map leader to <space> (for custom shortcuts without modifier keys)
 let mapleader = ' '
 " deactivate space - in case we press leader and nothing else, we would otherwise move the cursor
 nnoremap <space> <nop>
+" buffer
+nnoremap <silent> <leader>n :call <SID>CheckIfNetrwOnlyOpen()<cr>
 " tabs
 nnoremap <silent> <leader>c :tabnew<CR>
-nnoremap <silent> <leader><leader><Right> gt
-nnoremap <silent> <leader><leader><Left> gT
+" prev tab / next tab
+" M-F10 code: ^[[21;3~ mapped to <fn>+<alt>+<left>
+" M-F11 code: ^[[23;3~ mapped to <fn>+<alt>+<right>
+nnoremap <silent> <M-F10> gT
+nnoremap <silent> <M-F11> gt
 " windows
-
-nnoremap <silent> <leader><Up> <C-w><Up>
-nnoremap <silent> <leader><Down> <C-w><Down>
-nnoremap <silent> <leader><Left> <C-w><Left>
-nnoremap <silent> <leader><Right> <C-w><Right>
+" C-F{1 2 4} code: ^[[{1;5P 1;5Q 1;5S} mapped to <fn>+{<left> <right> <down>}
+" M-F4       code: ^[[1;3S mapped to <fn>+<up>
+nnoremap <silent> [1;5P <C-w><Left>
+nnoremap <silent> [1;5Q <C-w><Right>
+nnoremap <silent> [1;3S <C-w><Up>
+nnoremap <silent> [1;5S <C-w><Down>
 
 " spell check
 hi SpellBad   cterm=italic,undercurl ctermfg=None ctermbg=None ctermul=196
@@ -383,8 +511,214 @@ set spellfile=~/.vim/spell/my-words.utf-8.add
 " based on: https://stackoverflow.com/q/25777205/2350114
 "           https://stackoverflow.com/a/25777332/2350114
 nnoremap <expr> <leader>s &spell ? "a<C-x><C-s>" : ""
-inoremap <expr> <CR> pumvisible() ? "<C-y><Esc>" : "<CR>"
+" TODO breaks normal ctrl-p... drops us out of insert mode
+"inoremap <expr> <CR> pumvisible() ? "<C-y><Esc>" : "<CR>"
 
-" do not set a clipboard - we manually manage the register
-set clipboard=
+" TODO make them pretty
+" popup colors
+hi Pmenu      cterm=none ctermfg=black ctermbg=white
+hi PmenuSel   cterm=none ctermfg=black ctermbg=blue
+hi PmenuSbar  cterm=none ctermfg=black ctermbg=white
+hi PmenuThumb cterm=none ctermfg=white ctermbg=darkblue
 
+"""""""""""""""""
+" netrw continued
+
+" width in chars
+let s:NetrwWidth = 30
+
+fun s:ResizeNetrw(percent, win)
+    :exec 'vert '.a:win.'res '.string(min([float2nr(floor(&columns * a:percent)), s:NetrwWidth]))
+    let s:cur_nw_perc=a:percent
+endfun
+
+augroup AutoResizeNetrw
+    fun s:AutoResizeNetrw()
+        let l:win = filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") == "netrw"')
+        for l:w in l:win
+            call <SID>ResizeNetrw(0.2, l:w)
+        endfor
+    endfun
+    autocmd!
+    " resize file browser if adequate
+    autocmd VimResized * :call <SID>AutoResizeNetrw()
+augroup END
+
+" toggle open file browser - ensure that it is only 20% wide
+nnoremap <silent> <leader><tab> :Lexplore<CR><bar>:call <SID>ResizeNetrw(0.2, '')<CR>
+
+" if it is a folder: just switch to it
+" if it is a file: check if there is an open window, otherwise open an empty one
+" so netrw will open the file in the right spot
+fun! NetrwOpenThis(islocal)
+    "TODO: what if not is local?
+    let l:word = netrw#Call('NetrwGetWord')
+    if l:word !~ '[\/]$'
+        if winnr('$') == 1
+            :vnew
+            " select previous window => the netrw browser
+            wincmd p
+            call <SID>ResizeNetrw(0.2, '')
+        endif
+    endif
+    let l:dir = netrw#Call('NetrwBrowseChgDir', 1, l:word)
+    call netrw#LocalBrowseCheck(l:dir)
+endfun
+
+fun! s:LeftMouse(islocal)
+    call <SID>MouseClick(a:islocal, 0)
+endfun
+
+fun! s:MouseClick(islocal, file)
+    if &ft != "netrw"
+        return
+    endif
+    let ykeep= @@
+    " check if the status bar was clicked on instead of a file/directory name
+    while getchar(0) != 0
+        "clear the input stream
+    endwhile
+
+    let c          = getchar()
+    let mouse_lnum = v:mouse_lnum
+    let wlastline  = line('w$')
+    let lastline   = line('$')
+    if mouse_lnum >= wlastline + 1 || v:mouse_win != winnr()
+        let @@= ykeep
+        return
+    endif
+
+    if a:islocal
+        if exists("b:netrw_curdir")
+            let l:word = netrw#Call('NetrwGetWord')
+            if l:word =~ '[\/]$'
+                let l:dir = netrw#Call('NetrwBrowseChgDir', 1, l:word)
+                NetrwKeepj call netrw#LocalBrowseCheck(l:dir)
+            elseif a:file
+                call NetrwOpenThis(a:islocal)
+            endif
+        endif
+    else
+        echoerr "remote click not yet implemented - derbroti"
+    " TODO...
+    " else
+    "     if exists("b:netrw_curdir")
+    "         NetrwKeepj call s:NetrwBrowse(0,s:NetrwBrowseChgDir(0,s:NetrwGetWord()))
+    "     endif
+    endif
+    let @@= ykeep
+endfun
+
+let g:Netrw_UserMaps = [["<cr>","NetrwOpenThis"]]
+
+" netrw_usermaps does not work, as we can not first feed <leftmouse>...
+au FileType netrw nnoremap <buffer><silent> <leftmouse> <leftmouse>:call <SID>LeftMouse(1)<cr>
+au FileType netrw nnoremap <buffer><silent> <2-leftmouse> :<C-u>call <SID>MouseClick(1, 1)<cr>
+
+fun s:NetrwAutoHScroll()
+    " go to first col in line
+    normal 0
+    let l:line = getline(".")
+    let l:cnt = 0
+    for l:i in l:line
+        " my netrw is set to print depth as spaces
+        if l:i == ' '
+            let l:cnt += 1
+        else
+            break
+        endif
+    endfor
+    " leave one space so the cursor occupies it and does not sit on the first letter
+    if l:cnt > 1
+        exe 'normal z'.(l:cnt-1).'l'
+    endif
+endfun
+
+fun s:relResizeNetrw(inc)
+    let s:cur_nw_perc=get(s:, 'cur_nw_perc', 0.3) + a:inc
+     :exec 'vert res '.string(float2nr(floor(&columns * s:cur_nw_perc)))
+endfun
+
+" scroll so far that as much as possible of the file name is visible
+au CursorMoved * if &ft=='netrw'|:call <SID>NetrwAutoHScroll()|endif
+
+" widen the view - in case of long file names
+au FileType netrw nnoremap <buffer><silent> <tab> :call <SID>relResizeNetrw(0.05)<cr>
+" shrink back to orig. size
+au FileType netrw nnoremap <buffer><silent> <S-tab> :call <SID>ResizeNetrw(0.2, '')<CR>
+
+fun s:CheckIfOnlyWindowClose()
+    if winnr('$') == 1 && &ft == 'netrw'
+        :quit
+    endif
+endfun
+
+fun s:CheckIfNetrwOnlyOpen()
+    if &ft == 'netrw'
+        if winnr('$') == 1
+            :vnew
+            wincmd p
+            call <SID>ResizeNetrw(0.2, '')
+        else
+            " do nothing
+        endif
+    else
+        if ! getbufvar('%', '&modified')
+            :enew
+        else
+            :echohl WarningMsg | echo "Have unsaved buffer..."| echohl None
+        endif
+    endif
+endfun
+
+" quit if we are the last window
+" Note: to close a buffer without quitting: use :bd
+" (overwrites ex mode...)
+nnoremap <silent> Q :quit<cr><bar>:call <SID>CheckIfOnlyWindowClose()<cr>
+
+"if we have a search in netrw, n would not work together with autohscroll...
+" <shift>+n just works...
+" this jumps down one line and then looks for the next match
+" Note: this will skip a further match in a line
+au FileType netrw nnoremap <buffer><silent><expr> n &ft=='netrw' ? 'jn':'n'
+
+"""""""""""""""""
+fun! s:GetBuffers()
+    let l:bufs = getbufinfo()
+    let l:dict = {'items': [], 'bufnr': []}
+    for l:buf in l:bufs
+        let l:type = getbufvar(l:buf.bufnr, '&ft')
+        " ignore help, netrw, and all unloaded and unlisted buffers
+        if l:type == 'help' || l:type == 'netrw' || ! (l:buf.loaded || l:buf.listed)
+            continue
+        endif
+        " TODO shorten names...
+        " airline#util#shorten(getreg('/'), 300, 8)
+        let l:name = (empty(l:buf.name) ? '[No Name]' : l:buf.name)
+        call add(l:dict['items'], '('.l:buf.bufnr.') '.l:name)
+        call add(l:dict['bufnr'], l:buf.bufnr)
+    endfor
+    return l:dict
+endfun
+
+fun s:SelectBuffer(id, result)
+    if a:result > 0
+        if ! getbufvar('%', '&modified')
+            exec 'b ' . s:Buffers['bufnr'][a:result - 1]
+        else
+            :echohl WarningMsg | echo "Have unsaved buffer..."| echohl None
+        endif
+    endif
+endfun
+
+fun s:BufferPopup()
+    let s:Buffers = <SID>GetBuffers()
+    call popup_menu(s:Buffers['items'], #{title: "Select Buffer",
+                                        \ padding: [0,1,0,1],
+                                        \ borderchars: ['─', '│', '─', '│', '┌', '┐', '┘', '└'],
+                                        \ callback: '<SID>SelectBuffer'}
+                                        \ )
+endfun
+
+" open buffer selection popup - the selected buffer is opened in the current window
+nnoremap <silent> <leader>? :call <SID>BufferPopup()<cr>
