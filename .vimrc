@@ -28,7 +28,8 @@ syntax on
 colorscheme smyck
 hi Comment cterm=italic
 
-"let g:debug_me = ""
+" automatically change working directory on file open / (buffer/window) switch
+set autochdir
 
 " do not show 'search hit BOTTOM'
 set shortmess+=s
