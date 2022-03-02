@@ -3,6 +3,8 @@
 
 #     <=11<=22<=33<=44<=55<=66<=77<=88<=100
 bars=(' ' '▁' '▂' '▃' '▄' '▅' '▆' '▇' '█')
+# alternative
+#bars=(' ' '▏' '▎' '▍' '▌' '▋' '▊' '▉' '█')
 
 win_len=$2
 left_len=$3
@@ -26,8 +28,8 @@ here_min_len=$(( $here_base_len + 2 * $here_slashes_len - 1 )) # minus 1 as last
 
 if [ -n "$SSH_CLIENT" ]
 then
-    mascot="( •_•)O"
-    mascot_len=7
+    mascot="" # "o(•_• )"
+    mascot_len=8
 else
     mascot="(づ｡◕‿‿◕｡)づ"
     mascot_len=12
@@ -79,6 +81,7 @@ then
     color2="#[bg=colour16,fg=colour242]"
     color3="#[fg=colour245,bg=black]"
     color4="#[fg=colour240,bg=black]"
+    color5="#[fg=colour247,bg=black]"
     if [[ $client_key_table == "off" ]]
     then
         off="#[bg=red,fg=white] OFF #[default] "
@@ -87,9 +90,11 @@ else
     color1="#[bg=black,fg=green]"
     color2="#[fg=black,bg=white]"
     color3="#[fg=red,bg=black]"
-    color4="#[fg=orange,bg=black]"
+    color4="#[fg=yellow,bg=black]"
+    color5="#[fg=green,bg=black]"
 fi
 
+vpn=""
 bat=""
 # do not show battery when run on server
 if [ -z "$SSH_CLIENT" ]
@@ -98,11 +103,21 @@ then
     bat=${bat%?}
     bat=$(( $bat / 12 ))
     bat=${bars[$bat]}
+
+    vpn=$(ifconfig ipsec0 2>/dev/null | grep "RUNNING")
+    if [ -n "${vpn}" ]
+    then
+        vpn=${bars[8]}
+        #"●"
+    else
+        vpn=" "
+    fi
 else
-    now=" "
-    color4="#[fg=colour94,bg=black]"
+    vpn=" "
+    now="\`o(•_• )"
+    color4='#[fg=colour94,bg=black]'
     bat='≀'
 fi
 
-echo "${off}${mascot}${color1}${here}${color2}${now}${color3}${bars[$cpu]}${color4}$bat"
+echo "${off}${mascot}${color1}${here}${color2}${now}${color3}${bars[$cpu]}${color4}$bat${color5}${vpn}"
 
