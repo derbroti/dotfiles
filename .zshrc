@@ -1,4 +1,4 @@
-#???
+# used for anyrc to specify a different path for the config files
 if [[ -v ZDOTDIR ]]; then
     export ZSH=$ZDOTDIR/.zsh
 else
@@ -12,7 +12,7 @@ if [[ -v PRINT_MOTD && -v SSH_CLIENT ]]; then
 fi
 
 # have 1 trailing space in rprompt
-# my screen resolution results in an uneven tmux split... moving stuff around is otherwise ugly
+# my screen resolution results in an uneven tmux split... moving stuff around is ugly otherwise
 ZLE_RPROMPT_INDENT=1
 
 export LC_ALL=en_US.UTF-8
@@ -54,11 +54,9 @@ unsetopt correct_all
 # set -k
 setopt interactivecomments
 
-#bindkey "^[[1;3C" forward-word
-#bindkey "^[[1;3D" backward-word
 export PICO_SDK_PATH=/Users/Mirko/Projects/rpi-pico/pico-sdk
 
-source ~/.github.token
+source $ZSH/.github.token
 
 export PATH=/opt/homebrew/bin:$PATH
 
