@@ -1,8 +1,9 @@
-# MIT License. Copyright (c) 2022 Mirko Palmer
+# MIT License. Copyright (c) 2022 Mirko Palmer (derbroti)
 
 # NOTE: needs shortcut for "Tile Window to Left of Screen"
 # SystemPrefs -> Keyboard -> Shortcuts -> App Shortcuts -> All Applications
 # -> add "Tile Window to Left of Screen"
+# here: <cmd>+<ctrl>+<alt>+ä
 
 if [ -f /tmp/splitter_safari_window ]
 then
@@ -26,10 +27,24 @@ else
     tmux display-popup -h11 -w50 "echo \"\n\n\n\n                   Please Hold\n\n\n\"" &
 fi
 
-ret=$(/usr/bin/osascript <<EOF
+# weird check: either we run on main screen (1050 high) or on the second one, which is above the first
+# and macos sets 0,0 to be the left corner of the main screen
+is_fullscreen=$(/usr/bin/osascript <<EOF
 tell application "iTerm2" to set windowBounds to bounds of front window
-
 if item 4 of windowBounds is 1050 then
+    return 1
+else if item 4 of windowBounds is 0 and item 2 of windowBounds is -1692 then
+    return 2
+else
+    return 0
+end if
+EOF
+)
+
+# <cmd>+<ctrl>+f if toggle fullscreen
+if [ $is_fullscreen -ne 0 ]
+then
+    ret=$(/usr/bin/osascript <<EOF
     tell application "System Events"
             keystroke "f" using [command down, control down]
     end tell
@@ -43,15 +58,8 @@ if item 4 of windowBounds is 1050 then
             keystroke "ä" using [command down, control down, option down]
     end tell
     return window_id
-else
-    return -1
-end if
-return window_id
 EOF
 )
-
-if [ $ret -ge 0 ]
-then
     echo $ret > /tmp/splitter_safari_window
     /bin/sleep 0.5
     # move mouse to 2/3 of screenX and click to select the safari window
@@ -76,11 +84,13 @@ EOF
         tmux display-popup -C
     fi
 else
+    tmux display-popup -C
+
     if [ -z $tmux_client_id ]
     then
         echo "Not in full-screen!"
     else
-        tmux display-popup -h15 -w60 "echo \"\n\n\n\n\n\n                Not in full-screen!\""
+        tmux display-popup -h15 -w53 "echo \"\n\n\n\n\n\n                Not in full-screen!\n\n\n\n\n\""
     fi
 fi
 

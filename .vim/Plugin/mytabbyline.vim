@@ -70,10 +70,6 @@ function! MyTabbyLine()
   endfor
   let s .= '%T'
   let s .= '%#TabLineFill#'
-  " right-aligned close button
-  " if tabpagenr('$') > 1
-  "   let s .= '%=%#TabLineFill#%999Xclose'
-  " endif
   let s .= '%='
   if v:hlsearch
     let s .= '%#SearchBar#'
