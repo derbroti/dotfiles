@@ -15,6 +15,9 @@ fi
 # my screen resolution results in an uneven tmux split... moving stuff around is ugly otherwise
 ZLE_RPROMPT_INDENT=1
 
+# ignore ctrl+d (eof) to prevent accidental closing...
+setopt ignore_eof
+
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
