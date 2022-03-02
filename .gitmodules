@@ -1,3 +1,6 @@
 [submodule ".vim/pack/dist/start/vim-airline"]
 	path = .vim/pack/dist/start/vim-airline
 	url = git@github.com:derbroti/vim-airline.git
+[submodule ".tmux/libc"]
+	path = .tmux/libc
+	url = git@github.com:derbroti/libc.git
