@@ -18,6 +18,8 @@
 	<false/>
 	<key>CommandSelection</key>
 	<false/>
+	<key>ConvertItalicsToReverseVideoForTmux</key>
+	<false/>
 	<key>CopySelection</key>
 	<false/>
 	<key>Custom Color Presets</key>
@@ -728,8 +730,10 @@
 	<true/>
 	<key>DisableMetalWhenIdle</key>
 	<true/>
+	<key>DisablePotentiallyInsecureEscapeSequences</key>
+	<false/>
 	<key>DoubleClickPerformsSmartSelection</key>
-	<true/>
+	<false/>
 	<key>DrawOutlineAroundCursor</key>
 	<false/>
 	<key>EnableProxyIcon</key>
@@ -745,30 +749,7 @@
 	<key>FullHeightCursor</key>
 	<true/>
 	<key>GlobalKeyMap</key>
-	<dict>
-		<key>0xf702-0x320000-0x0</key>
-		<dict>
-			<key>Action</key>
-			<integer>2</integer>
-			<key>Label</key>
-			<string></string>
-			<key>Text</key>
-			<string></string>
-			<key>Version</key>
-			<integer>0</integer>
-		</dict>
-		<key>0xf703-0x320000-0x0</key>
-		<dict>
-			<key>Action</key>
-			<integer>0</integer>
-			<key>Label</key>
-			<string></string>
-			<key>Text</key>
-			<string></string>
-			<key>Version</key>
-			<integer>0</integer>
-		</dict>
-	</dict>
+	<dict/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideActivityIndicator</key>
@@ -1211,16 +1192,16 @@
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
-				<key>0x3c-0x80000-0x32</key>
+				<key>0x63-0x80000-0x8</key>
 				<dict>
 					<key>Action</key>
-					<integer>12</integer>
-					<key>Label</key>
-					<string></string>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
 					<key>Text</key>
-					<string>|</string>
+					<string>[99;2~</string>
 					<key>Version</key>
-					<integer>1</integer>
+					<integer>2</integer>
 				</dict>
 				<key>0x63-0xc0000-0x8</key>
 				<dict>
@@ -1229,7 +1210,7 @@
 					<key>Escaping</key>
 					<integer>2</integer>
 					<key>Text</key>
-					<string>[1;3S</string>
+					<string>[99;1~</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
@@ -1255,12 +1236,16 @@
 					<key>Version</key>
 					<integer>1</integer>
 				</dict>
-				<key>0x6e-0x80000</key>
+				<key>0x9-0x80000-0x30</key>
 				<dict>
 					<key>Action</key>
-					<integer>12</integer>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
 					<key>Text</key>
-					<string>~</string>
+					<string>[1;88P</string>
+					<key>Version</key>
+					<integer>2</integer>
 				</dict>
 				<key>0xf700-0x220000</key>
 				<dict>
@@ -1305,6 +1290,17 @@
 					<key>Version</key>
 					<integer>1</integer>
 				</dict>
+				<key>0xf700-0x320000-0x7e</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[99;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0xf701-0x220000</key>
 				<dict>
 					<key>Action</key>
@@ -1348,6 +1344,17 @@
 					<key>Version</key>
 					<integer>1</integer>
 				</dict>
+				<key>0xf701-0x320000-0x7d</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[99;4~</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0xf702-0x220000-0x7b</key>
 				<dict>
 					<key>Action</key>
@@ -1383,6 +1390,17 @@
 					<string>[1;2P</string>
 					<key>Version</key>
 					<integer>1</integer>
+				</dict>
+				<key>0xf702-0x320000-0x7b</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[99;5~</string>
+					<key>Version</key>
+					<integer>2</integer>
 				</dict>
 				<key>0xf702-0x380000-0x7b</key>
 				<dict>
@@ -1431,6 +1449,17 @@
 					<key>Version</key>
 					<integer>1</integer>
 				</dict>
+				<key>0xf703-0x320000-0x7c</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[99;6~</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0xf703-0x380000-0x7c</key>
 				<dict>
 					<key>Action</key>
@@ -1460,6 +1489,17 @@
 					<key>Text</key>
 					<string>[1;2P</string>
 				</dict>
+				<key>0xf704-0x40000-0x7a</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[1;5P</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0xf704-0x80000-0x7a</key>
 				<dict>
 					<key>Action</key>
@@ -1477,6 +1517,17 @@
 					<integer>10</integer>
 					<key>Text</key>
 					<string>[1;2Q</string>
+				</dict>
+				<key>0xf705-0x40000-0x78</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[1;5Q</string>
+					<key>Version</key>
+					<integer>2</integer>
 				</dict>
 				<key>0xf705-0x80000-0x78</key>
 				<dict>
@@ -1496,12 +1547,45 @@
 					<key>Text</key>
 					<string>[1;2R</string>
 				</dict>
+				<key>0xf706-0x40000-0x63</key>
+				<dict>
+					<key>Action</key>
+					<integer>13</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string></string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+				<key>0xf706-0x80000-0x63</key>
+				<dict>
+					<key>Action</key>
+					<integer>13</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string></string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0xf707-0x20000</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
 					<key>Text</key>
 					<string>[1;2S</string>
+				</dict>
+				<key>0xf707-0x40000-0x76</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[1;5S</string>
+					<key>Version</key>
+					<integer>2</integer>
 				</dict>
 				<key>0xf707-0x80000-0x76</key>
 				<dict>
@@ -1575,12 +1659,34 @@
 					<key>Text</key>
 					<string>[19;2~</string>
 				</dict>
+				<key>0xf70b-0x80000-0x64</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[19;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0xf70c-0x20000</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
 					<key>Text</key>
 					<string>[20;2~</string>
+				</dict>
+				<key>0xf70c-0x80000-0x65</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[20;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
 				</dict>
 				<key>0xf70d-0x20000</key>
 				<dict>
@@ -1589,12 +1695,34 @@
 					<key>Text</key>
 					<string>[21;2~</string>
 				</dict>
+				<key>0xf70d-0x80000-0x6d</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[21;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0xf70e-0x20000</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
 					<key>Text</key>
 					<string>[23;2~</string>
+				</dict>
+				<key>0xf70e-0x80000-0x67</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[23;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
 				</dict>
 				<key>0xf70f-0x20000</key>
 				<dict>
@@ -1603,25 +1731,80 @@
 					<key>Text</key>
 					<string>[24;2~</string>
 				</dict>
-				<key>0xf72c-0x40000-0x74</key>
+				<key>0xf70f-0x80000-0x6f</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
 					<key>Escaping</key>
 					<integer>2</integer>
 					<key>Text</key>
-					<string>[15;3~</string>
+					<string>[24;3~</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
-				<key>0xf72d-0x40000-0x79</key>
+				<key>0xf729-0x100000-0x73</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
 					<key>Escaping</key>
 					<integer>2</integer>
 					<key>Text</key>
-					<string>[17;3~</string>
+					<string>[1;5P</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+				<key>0xf729-0x180000-0x73</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[21;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+				<key>0xf72b-0x100000-0x77</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[1;5Q</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+				<key>0xf72b-0x180000-0x77</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[23;3~</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+				<key>0xf72c-0x100000-0x74</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[1;3S</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+				<key>0xf72d-0x100000-0x79</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[1;5S</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
@@ -2070,38 +2253,7 @@
 	<key>PinchToChangeFontSizeDisabled</key>
 	<true/>
 	<key>PointerActions</key>
-	<dict>
-		<key>Button,1,1,,</key>
-		<dict>
-			<key>Action</key>
-			<string>kContextMenuPointerAction</string>
-		</dict>
-		<key>Button,2,1,,</key>
-		<dict>
-			<key>Action</key>
-			<string>kPasteFromClipboardPointerAction</string>
-		</dict>
-		<key>Gesture,ThreeFingerSwipeDown,,</key>
-		<dict>
-			<key>Action</key>
-			<string>kPrevWindowPointerAction</string>
-		</dict>
-		<key>Gesture,ThreeFingerSwipeLeft,,</key>
-		<dict>
-			<key>Action</key>
-			<string>kPrevTabPointerAction</string>
-		</dict>
-		<key>Gesture,ThreeFingerSwipeRight,,</key>
-		<dict>
-			<key>Action</key>
-			<string>kNextTabPointerAction</string>
-		</dict>
-		<key>Gesture,ThreeFingerSwipeUp,,</key>
-		<dict>
-			<key>Action</key>
-			<string>kNextWindowPointerAction</string>
-		</dict>
-	</dict>
+	<dict/>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>ProportionalScrollWheelReporting</key>
@@ -2133,7 +2285,7 @@
 	<key>SwitchTabModifier</key>
 	<integer>9</integer>
 	<key>SwitchWindowModifier</key>
-	<integer>4</integer>
+	<integer>9</integer>
 	<key>TabStyle</key>
 	<integer>1</integer>
 	<key>TabStyleWithAutomaticOption</key>
@@ -2146,6 +2298,10 @@
 	<false/>
 	<key>TraditionalVisualBell</key>
 	<false/>
+	<key>TranslateScreenToXterm</key>
+	<false/>
+	<key>UnderlineCursorHeight</key>
+	<real>3</real>
 	<key>UseBorder</key>
 	<false/>
 	<key>UseModernScrollWheelAccumulator</key>
@@ -2155,7 +2311,7 @@
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>WindowNumber</key>
-	<true/>
+	<false/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>findMode_iTerm</key>
