@@ -14,6 +14,16 @@ let &t_Ce = "\e[4:0m"
 
 set encoding=utf-8
 
+" used for anyrc
+" https://stackoverflow.com/a/3384476/2350114
+" set default 'runtimepath' (without ~/.vim folders)
+let &runtimepath = printf('%s/vimfiles,%s,%s/vimfiles/after', $VIM, $VIMRUNTIME, $VIM)
+" what is the name of the directory containing this file?
+let s:portable = expand('<sfile>:p:h') . '/.vim'
+" add the directory to 'runtimepath'
+let &runtimepath = printf('%s,%s,%s/after', s:portable, &runtimepath, s:portable)
+" echo &runtimepath
+
 syntax on
 colorscheme smyck
 hi Comment cterm=italic
