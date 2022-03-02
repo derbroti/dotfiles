@@ -5,8 +5,6 @@ bindkey -e
 # vim editing mode (some day maybe...)
 #bindkey -v
 
-# do not want #bindkey '\ew' kill-region
-
 # -s is "in string, out string"
 # run ls by pressing <esc>+l
 bindkey -s '\el' "ls -hal\n"
@@ -14,19 +12,26 @@ bindkey -s '\el' "ls -hal\n"
 bindkey -s '\e.' "..\n"
 # go to last directory with <esc>+-
 bindkey -s '\e-' "cd -\n"
+# go home
+bindkey -s '\eh' "cd ~\n"
 
 # defined in history.zsh
 # <up/down> searches in local history
 bindkey "^[[A" up-line-or-local-history
 bindkey "^[[B" down-line-or-local-history
-# ctrl + pageup/down (aka <fn>+<up/down>) searches global history # mapped in iterm
-bindkey "^[[15;3~" up-line-or-history
-bindkey "^[[17;3~" down-line-or-history
+# the above does not work because... debian?
+# something.. something... normal vs. application mode or in short: terminals are weird
+# https://invisible-island.net/xterm/xterm.faq.html#xterm_arrows
+# (see /etc/zsh/zshrc)
+bindkey "^[OA" up-line-or-local-history
+bindkey "^[OB" down-line-or-local-history
 
-
-# <fn>+<up/down> (aka <Page Up/Down>): use already typed text for search in history
-bindkey "^[[5~" up-line-or-search
-bindkey "^[[6~" down-line-or-search
+#<ctrl>+<up/down> searches global history
+bindkey "^[[1;5A" up-line-or-history
+bindkey "^[[1;5B" down-line-or-history
+# <alt>+<up/down> use already typed text for search in history
+bindkey "^[[1;3A" up-line-or-search
+bindkey "^[[1;3B" down-line-or-search
 
 # not needed
 #bindkey "^[[H" beginning-of-line
@@ -36,21 +41,31 @@ bindkey "^[[6~" down-line-or-search
 #bindkey "^[[4~" end-of-line
 #bindkey "^[OF" end-of-line
 
-# ???
-# bindkey ' ' magic-space    # also do history expansion on space
+# ??? ??? from oh-my-zsh
+bindkey ' ' magic-space # [Space] - don't do history expansion
+
+# <alt>+<right>
+bindkey "^[[1;3C" emacs-forward-word
+# <alt>+<left>
+bindkey "^[[1;3D" vi-backward-word
+
+# again terms are weird: different codes inside and outside of tmux...
+# <alt><left|right>
+bindkey "^[[1;9C" emacs-forward-word
+bindkey "^[[1;9D" vi-backward-word
 
 # <ctrl>+<right>
-bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5C" end-of-line
 # <ctrl>+<left>
-bindkey "^[[1;5D" backward-word
-# ???
-bindkey '^[[Z' reverse-menu-complete
+bindkey "^[[1;5D" beginning-of-line
 
-# Make the delete key (or Fn + Delete on the Mac) work instead of outputting a ~
-bindkey '^?' backward-delete-char
+# ???
+# bindkey '^[[Z' reverse-menu-complete
+
+bindkey "^?" backward-delete-char
+bindkey "^H" backward-delete-char
+# delete
 bindkey "^[[3~" delete-char
-bindkey "^[3;5~" delete-char
-bindkey "\e[3~" delete-char
 
 # moved to https://github.com/deseven/iCanHazShortcut, still on: ctrl-esc
 # # open safari window in split screen - when terminal is in full screen
