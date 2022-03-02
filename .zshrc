@@ -48,32 +48,13 @@ unsetopt correct_all
 # set -k
 setopt interactivecomments
 
-# alias kbl="kb list"
-# alias kbe="kb edit"
-# alias kba="kb add"
-# alias kbv="kb view"
-# alias kbs="kb view"
-# alias kbd="kb delete --id"
-# alias kbg="kb grep"
-# alias kbt="kb list --tags"
-# alias kbn="kb add --title"
-
-alias sha256="openssl dgst -sha256"
-
 #bindkey "^[[1;3C" forward-word
 #bindkey "^[[1;3D" backward-word
-
 export PICO_SDK_PATH=/Users/Mirko/Projects/rpi-pico/pico-sdk
-
-alias brew86="arch -x86_64 /usr/local/bin/brew"
-alias brew="/opt/homebrew/bin/brew"
 
 source ~/.github.token
 
 export PATH=/opt/homebrew/bin:$PATH
-
-alias python=/opt/homebrew/bin/python3
-alias pip=/opt/homebrew/bin/pip3
 
 LS_COMPL_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:or=40;31;01:"
 zstyle ':completion:*' list-colors ${(s.:.)LS_COMPL_COLORS}
