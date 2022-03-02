@@ -5,6 +5,12 @@ else
     export ZSH=~/.zsh
 fi
 
+# if we are connecting via ssh (through anyrc, which sets "PRINT_MOTD"), print the motd once
+if [[ -v PRINT_MOTD && -v SSH_CLIENT ]]; then
+    run-parts /etc/update-motd.d/
+    unset PRINT_MOTD
+fi
+
 # have 1 trailing space in rprompt
 # my screen resolution results in an uneven tmux split... moving stuff around is otherwise ugly
 ZLE_RPROMPT_INDENT=1
