@@ -263,9 +263,9 @@ try
 catch
 endtry
 
-" insert mode cursor: bar; other modes cursor: block
-let &t_SI = "\e[6 q"
-let &t_EI = "\e[2 q"
+" insert mode cursor: orange bar; other modes cursor: white block
+let &t_SI = "\e[6 q\e]12;orange\x7"
+let &t_EI = "\e[2 q\e]12;white\x7"
 
 set number
 "expect to start at line 1 -> abs mode
