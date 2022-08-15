@@ -45,7 +45,13 @@ then
 else
     if [ -n "${TMUX}" ]
     then
+        # tmux has a hard limit ot 5 seconds for any escape sequence
+        OLD_ESC_TIME=$(tmux display-message -p "#{escape-time}")
+        tmux set -sg escape-time 5000
         REPLY=$(tmux refresh-client -l ${TMUX_PANE})
+        tmux set -sg escape-time ${OLD_ESC_TIME}
+        read -rs -u0 -d$'\\' < $SSH_TTY
+        REPLY=${REPLY:0:-1}
     else
         osc52="\033]52;c;?\a"
         if [ -n "${OUTSIDE_TMUX}" ]
