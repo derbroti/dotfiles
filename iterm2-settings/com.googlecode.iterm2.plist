@@ -736,6 +736,8 @@
 	<false/>
 	<key>DrawOutlineAroundCursor</key>
 	<false/>
+	<key>EnableAPIServer</key>
+	<false/>
 	<key>EnableProxyIcon</key>
 	<false/>
 	<key>ExcludeBackgroundColorsFromCopiedStyle</key>
