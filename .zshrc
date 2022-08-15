@@ -1,5 +1,8 @@
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+
+export PAGER=less
 
 # used for anyrc to specify a different path for the config files
 if [[ -v ZDOTDIR ]]; then
@@ -41,6 +44,8 @@ setopt interactivecomments
 # e.g.: echo Hello > foo > bar
 # writes Hello into a file named foo and a file named bar
 setopt multios
+
+setopt long_list_jobs
 
 LS_COMPL_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:or=40;31;01:"
 zstyle ':completion:*' list-colors ${(s.:.)LS_COMPL_COLORS}
