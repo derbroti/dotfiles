@@ -34,11 +34,6 @@ hosts=(
 )
 zstyle ':completion:*:hosts' hosts $hosts
 
-# ???
-# Use caching so that commands like apt and dpkg complete are useable
-zstyle ':completion::complete:*' use-cache 1
-zstyle ':completion::complete:*' cache-path ~/.oh-my-zsh/cache/
-
 # Don't complete uninteresting users
 zstyle ':completion:*:*:*:users' ignored-patterns \
         adm amanda apache avahi beaglidx bin cacti canna clamav daemon \

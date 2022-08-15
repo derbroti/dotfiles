@@ -26,7 +26,7 @@ bindkey "^[[B" down-line-or-local-history
 bindkey "^[OA" up-line-or-local-history
 bindkey "^[OB" down-line-or-local-history
 
-#<ctrl>+<up/down> searches global history
+# <ctrl>+<up/down> searches global history
 bindkey "^[[1;5A" up-line-or-history
 bindkey "^[[1;5B" down-line-or-history
 # <alt>+<up/down> use already typed text for search in history

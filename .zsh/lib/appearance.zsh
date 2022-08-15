@@ -8,26 +8,11 @@ then
   ls --color -d . &>/dev/null 2>&1 && alias ls='ls --color=tty' || alias ls='ls -G'
 fi
 
+#TODO check
 #setopt no_beep
-setopt auto_cd
-setopt multios
-setopt cdablevarS
-
-if [[ x$WINDOW != x ]]
-then
-    SCREEN_NO="%B$WINDOW%b "
-else
-    SCREEN_NO=""
-fi
-
-# # $1 = type; 0 - both, 1 - tab, 2 - title
-# # rest = text
-# setTerminalText () {
-#     # echo works in bash & zsh
-#     local mode=$1 ; shift
-#     echo -ne "\033]$mode;$@\007"
-# }
-# stt_both  () { setTerminalText 0 $@; }
-# stt_tab   () { setTerminalText 1 $@; }
-# stt_title () { setTerminalText 2 $@; }
-
+#if [[ x$WINDOW != x ]]
+#then
+#    SCREEN_NO="%B$WINDOW%b "
+#else
+#    SCREEN_NO=""
+#fi
