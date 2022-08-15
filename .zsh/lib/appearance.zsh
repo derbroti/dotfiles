@@ -8,8 +8,7 @@ then
   ls --color -d . &>/dev/null 2>&1 && alias ls='ls --color=tty' || alias ls='ls -G'
 fi
 
-#TODO check
-#setopt no_beep
+#TODO check if useful or needed?
 #if [[ x$WINDOW != x ]]
 #then
 #    SCREEN_NO="%B$WINDOW%b "

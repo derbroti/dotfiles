@@ -34,10 +34,9 @@ fpath=($HOME/.zsh/lib/completions $fpath)
 
 # do not correct arguments
 unsetopt correct_all
-#setopt correct
 
-# ignore commands starting with a #
-# set -k
+# allows to put a command into the history without executing it
+# by putting a # in front of it
 setopt interactivecomments
 
 # allow multiple output redirections
@@ -45,7 +44,11 @@ setopt interactivecomments
 # writes Hello into a file named foo and a file named bar
 setopt multios
 
+# print PID when using jobs
 setopt long_list_jobs
+
+# do not beep!
+setopt nobeep
 
 LS_COMPL_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:or=40;31;01:"
 zstyle ':completion:*' list-colors ${(s.:.)LS_COMPL_COLORS}
