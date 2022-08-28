@@ -59,8 +59,12 @@ bindkey "^[[1;5C" end-of-line
 # <ctrl>+<left>
 bindkey "^[[1;5D" beginning-of-line
 
-# ???
-# bindkey '^[[Z' reverse-menu-complete
+# <shift>+<tab> moves to the left in menus
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+
+# use <enter> to drill down in directories and keep the interactive mode on
+# press space to get out of it
+bindkey -M menuselect '^M' accept-and-infer-next-history
 
 bindkey "^?" backward-delete-char
 bindkey "^H" backward-delete-char

@@ -8,9 +8,6 @@ setopt always_to_end
 
 zmodload -i zsh/complist
 
-# should this be in keybindings?
-bindkey -M menuselect '^o' accept-and-infer-next-history
-
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 zstyle ':completion:*:*:*:*:processes' command "ps -u `whoami` -o pid,user,comm -w -w"
 
@@ -56,3 +53,4 @@ if [ "x$COMPLETION_WAITING_DOTS" = "xtrue" ]; then
   zle -N expand-or-complete-with-dots
   bindkey "^I" expand-or-complete-with-dots
 fi
+
