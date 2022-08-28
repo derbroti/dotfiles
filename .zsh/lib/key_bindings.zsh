@@ -61,6 +61,8 @@ bindkey "^[[1;5D" beginning-of-line
 
 # <shift>+<tab> moves to the left in menus
 bindkey -M menuselect '^[[Z' reverse-menu-complete
+# <esc> stop menu without the last completion
+bindkey -M menuselect '^[' send-break
 
 # use <enter> to drill down in directories and keep the interactive mode on
 # press space to get out of it

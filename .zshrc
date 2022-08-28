@@ -26,6 +26,9 @@ ZLE_RPROMPT_INDENT=1
 
 WORDCHARS='*?_-[]~&;!$%^(){}<>'
 
+# set esc key timeout to 10ms
+KEYTIMEOUT=1
+
 # ignore ctrl+d (eof) to prevent accidental closing...
 setopt ignore_eof
 
