@@ -50,9 +50,6 @@ setopt long_list_jobs
 # do not beep!
 setopt nobeep
 
-LS_COMPL_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:or=40;31;01:"
-zstyle ':completion:*' list-colors ${(s.:.)LS_COMPL_COLORS}
-
 # The following lines were added by compinstall
 
 zstyle ':completion:*' completer _expand _complete _prefix
