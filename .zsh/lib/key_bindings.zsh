@@ -67,6 +67,7 @@ bindkey -M menuselect '^[' send-break
 # use <enter> to drill down in directories and keep the interactive mode on
 # press space to get out of it
 bindkey -M menuselect '^M' accept-and-infer-next-history
+bindkey -M menuselect '^[[99;0~' undo
 
 bindkey "^?" backward-delete-char
 bindkey "^H" backward-delete-char
