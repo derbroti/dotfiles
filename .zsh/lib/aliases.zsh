@@ -24,6 +24,10 @@ alias brew="/opt/homebrew/bin/brew"
 
 alias sha256="openssl dgst -sha256"
 
+alias d='dirs -v'
+for index in {0..9}; alias "$index"="cd +${index}"
+unset index
+
 # <obsolete>
 # run with x86 node #ugly...
 # changed joplin itself to not use systemwide node but specific x86 build

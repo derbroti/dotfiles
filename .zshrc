@@ -53,6 +53,10 @@ setopt long_list_jobs
 # do not beep!
 setopt nobeep
 
+setopt AUTO_PUSHD           # Push the current directory visited on the stack.
+setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
+setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
+
 # The following lines were added by compinstall
 
 zstyle ':completion:*' completer _expand _complete _prefix
