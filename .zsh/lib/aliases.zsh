@@ -5,6 +5,8 @@ alias lh='ls -hal'
 alias ...='cd ../..'
 alias now='date +%s'
 
+alias ls='ls --color=tty'
+
 # alias for dotfiles repo
 alias config='/usr/bin/git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME'
 
