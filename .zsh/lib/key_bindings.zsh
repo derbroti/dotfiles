@@ -59,14 +59,19 @@ bindkey "^[[1;5C" end-of-line
 # <ctrl>+<left>
 bindkey "^[[1;5D" beginning-of-line
 
-# <shift>+<tab> moves to the left in menus
+# <shift>+<tab> moves to the left in menu
 bindkey -M menuselect '^[[Z' reverse-menu-complete
 # <esc> stop menu without the last completion
 bindkey -M menuselect '^[' send-break
 
 # use <enter> to drill down in directories and keep the interactive mode on
-# press space to get out of it
+# <esc> do not keep the currently selected, but all previous path components (keeps slash at end)
+# <space> (same as esc but does _not_ keep slash and adds a space...)
 bindkey -M menuselect '^M' accept-and-infer-next-history
+# <shift>+<enter> undo - see iterm keybindings
+# not limiting to menuselect so even after closing the menu you can remove a wrong entry
+bindkey '^[[99;0~' undo
+# in menuselect undo does not close the menu, without explicitly defining it here, this does not work
 bindkey -M menuselect '^[[99;0~' undo
 
 bindkey "^?" backward-delete-char
