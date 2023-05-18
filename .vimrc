@@ -216,6 +216,8 @@ au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 au FIleType python let g:airline#extensions#coli#columns+=80
 au FileType ruby   set softtabstop=2 tabstop=2 shiftwidth=2
 
+au FileType mkern set listchars=tab:◦\ ,trail:•
+
 " switch mode goes brrrr
 set timeoutlen=1000
 set ttimeoutlen=5
