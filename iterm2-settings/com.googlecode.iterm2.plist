@@ -2221,13 +2221,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>1</real>
+				<real>0.0</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.13427402079105377</real>
+				<real>0.0</real>
 				<key>Red Component</key>
-				<real>0.99999600648880005</real>
+				<real>1</real>
 			</dict>
 			<key>Unlimited Scrollback</key>
 			<true/>
@@ -2244,7 +2244,7 @@
 			<key>Use Tab Color</key>
 			<false/>
 			<key>Use Underline Color</key>
-			<false/>
+			<true/>
 			<key>Use libtickit protocol</key>
 			<false/>
 			<key>Vertical Spacing</key>
@@ -2314,7 +2314,7 @@
 	<key>TraditionalVisualBell</key>
 	<false/>
 	<key>TranslateScreenToXterm</key>
-	<false/>
+	<true/>
 	<key>UnderlineCursorHeight</key>
 	<real>3</real>
 	<key>UseBorder</key>
