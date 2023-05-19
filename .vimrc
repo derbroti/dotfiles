@@ -1,6 +1,5 @@
 set nocompatible
 "set term=alacritty
-"set term=iTerm2
 set term=xterm-256color
 
 " do not allow code exec in modelines
