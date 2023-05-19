@@ -12,6 +12,10 @@ set belloff=all
 let &t_Cs = "\e[4:3m"
 let &t_Ce = "\e[4:0m"
 
+" italics
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+
 set encoding=utf-8
 
 " used for anyrc
