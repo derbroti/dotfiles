@@ -370,7 +370,7 @@ set noshowmode
 set laststatus=0
 
 " from: https://stackoverflow.com/a/6271254/2350114
-fun s:get_visual_selection()
+fun s:GetVisualLineSelection()
     let [line_start, column_start] = getpos("'<")[1:2]
     let [line_end, column_end] = getpos("'>")[1:2]
     let lines = getline(line_start, line_end)
@@ -379,14 +379,18 @@ fun s:get_visual_selection()
     endif
     let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
     let lines[0] = lines[0][column_start - 1:]
-    exec ':match HighlightMatch /' . join(lines, '\n') . '/'
+    return join(lines, '\n')
 endfunction
+
+fun s:HighlightVisualSelection()
+    exec ':match HighlightMatch /' . <SID>GetVisualLineSelection() . '/'
+endfun
 
 hi HighlightMatch cterm=NONE ctermfg=Black ctermbg=6
 " press * to match word under cursor
 nnoremap <silent> * :exec 'match HighlightMatch /'.expand('<cword>').'/'<CR>
 " works for multiple lines in visual(block) mode
-vnoremap <silent> * :call <SID>get_visual_selection()<CR>
+vnoremap <silent> * :call <SID>HighlightVisualSelection()<CR>
 " clear highlighted word
 " code: ^[[24;2~ mapped to: <shift>+<alt>++
 nnoremap <silent> <S-F12> :match<CR>
