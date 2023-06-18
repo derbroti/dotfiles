@@ -22,9 +22,10 @@ set encoding=utf-8
 " set default 'runtimepath' (without ~/.vim folders)
 let &runtimepath = printf('%s/vimfiles,%s,%s/vimfiles/after', $VIM, $VIMRUNTIME, $VIM)
 " what is the name of the directory containing this file?
-let s:portable = expand('<sfile>:p:h') . '/.vim'
+" https://stackoverflow.com/a/18734557/8205759
+let s:vimrc_path = fnamemodify(resolve(expand('<sfile>:p')), ':h') . '/.vim'
 " add the directory to 'runtimepath'
-let &runtimepath = printf('%s,%s,%s/after', s:portable, &runtimepath, s:portable)
+let &runtimepath = printf('%s,%s,%s/after', s:vimrc_path, &runtimepath, s:vimrc_path)
 " echo &runtimepath
 
 syntax on
