@@ -1172,7 +1172,7 @@
 					<key>Version</key>
 					<integer>1</integer>
 				</dict>
-				<key>0x2a-0xa0000-0x1e</key>
+				<key>0x2b-0xa0000-0x18</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
@@ -1215,6 +1215,17 @@
 					<string>[99;1~</string>
 					<key>Version</key>
 					<integer>2</integer>
+				</dict>
+				<key>0x66-0x80000-0x3</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>[99;10~</string>
+					<key>Version</key>
+					<integer>1</integer>
 				</dict>
 				<key>0x6b-0x100000-0x28</key>
 				<dict>

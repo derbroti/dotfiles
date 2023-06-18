@@ -736,3 +736,83 @@ endfun
 
 " open buffer selection popup - the selected buffer is opened in the current window
 nnoremap <silent> <leader>? :call <SID>BufferPopup()<cr>
+
+
+" based on: https://github.com/cjuniet/clang-format.vim
+" The visual selection mode replaces only the selected lines
+fun s:ClangFormat(vis) range
+    if (&ft != 'c' && &ft != 'cpp')
+       return
+    endif
+    if (executable("clang-format") != 1)
+        echoerr "clang-format not found!"
+        return
+    endif
+
+    " line and col each start at one
+    let l:cursor = line2byte(line(".")) + col(".") -2
+    let l:scroll = line('w$')
+
+    let l:cmd  = "clang-format --style=file:" . s:vimrc_path . "/formatter/.clang-format"
+    let l:args = " -cursor=" . l:cursor
+
+    if (a:vis)
+        " In visual mode we pass the file from line 1 till the
+        " bottom of the selection, making sure that indentations work.
+        let l:args .= " -lines=" . a:firstline . ":" . a:lastline
+        let l:inp   = join(getline(1, a:lastline), "\x0a")
+    else
+        let l:inp = join(getline(1, '$'), "\x0a")
+    endif
+
+    let l:formatted  = system(l:cmd . l:args, l:inp)
+    let l:form_lines = split(l:formatted, '\n')
+    let l:header     = remove(l:form_lines, 0)
+
+    " clang-format header example:
+    " { "Cursor": 2092, "IncompleteFormat": false }
+    "
+    if match(l:header, 'false') == -1
+        echoerr "Error: Incomplete format!"
+        return
+    endif
+
+    let l:cursor = matchstr(l:header, '"Cursor": \zs\d\+\ze')
+    if (l:cursor == "")
+        echoerr "Error: No cursor information received - stopping"
+        return
+    endif
+    let l:cursor += 1 " vim starts counting at 1
+
+    if (a:vis)
+        " Since we chopped of all lines below our selection, we can make sure
+        " to pick only the replaced lines (even if the formatted code is now shorter or longer)
+        " by chopping of everything above our selection
+        let l:form_lines = l:form_lines[a:firstline-1:] " zero-indexed array
+
+        " delete the entire selection (i.e.: the old code)
+        " puts us on the first line after the selection
+        silent :'<,'>d
+        " insert formatted code
+        " since we are on the first line below the deleted selection
+        " we have to insert our text above (-1) the current line / the original selection
+        silent call append(a:firstline -1, l:form_lines)
+    else
+        silent :%delete _
+        call setline(1, l:form_lines)
+    endif
+
+    exec 'norm ' . l:scroll . 'z-'
+    exec 'goto ' . l:cursor
+endfun
+
+exec "set <M-f>=\e[99;10~"
+nnoremap <silent> <M-f> :call <SID>ClangFormat(0)<cr>
+vnoremap <silent> <M-f> :call <SID>ClangFormat(1)<cr>
+
+" jump to last cursor position when opening files
+" from: :help restore-cursor
+autocmd BufReadPost *
+    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' && &ft != 'netrw'
+    \ |   exe "normal! g`\""
+    \ | endif
