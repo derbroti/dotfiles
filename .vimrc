@@ -271,6 +271,7 @@ endtry
 
 " insert mode cursor: orange bar; other modes cursor: white block
 let &t_SI = "\e[6 q\e]12;orange\x7"
+let &t_SR = "\e[2 q\e]12;white\x7"
 let &t_EI = "\e[2 q\e]12;white\x7"
 
 set number
