@@ -459,8 +459,8 @@ vnoremap <silent> <C-Down> <S-g>
 " <alt>+<left/right> jumps words
 nnoremap <M-Left> b
 nnoremap <M-Right> e
-inoremap <silent><nowait> <M-Left> <c-o>b
-inoremap <silent><nowait> <M-Right> <c-o>e
+" inoremap <silent><nowait> <M-Left> <c-o>b
+" inoremap <silent><nowait> <M-Right> <c-o>e
 vnoremap <M-Left> b
 vnoremap <M-Right> e
 cnoremap <M-Left> <S-Left>
@@ -468,8 +468,8 @@ cnoremap <M-Right> <S-Right>
 " <ctrl>+<left/right> jumps to start/end of line
 nnoremap <C-Left> 0
 nnoremap <C-Right> $
-inoremap <silent><nowait> <C-Left> <c-o>0
-inoremap <silent><nowait> <C-Right> <c-o>$
+" inoremap <silent><nowait> <C-Left> <c-o>0
+" inoremap <silent><nowait> <C-Right> <c-o>$
 vnoremap <C-Left> 0
 vnoremap <C-Right> $
 cnoremap <C-Left> <C-b>
@@ -501,13 +501,13 @@ nnoremap <silent> <leader>n :call <SID>CheckIfNetrwOnlyOpen()<cr>
 " tabs
 nnoremap <silent> <leader>c :tabnew<CR>
 " prev tab / next tab
-" M-F10 code: ^[[21;3~ mapped to <fn>+<alt>+<left>
-" M-F11 code: ^[[23;3~ mapped to <fn>+<alt>+<right>
+" M-F10 code: ^[[21;3~ mapped to <fn>+<cmd>+<alt>+<left>
+" M-F11 code: ^[[23;3~ mapped to <fn>+<cmd>+<alt>+<right>
 nnoremap <silent> <M-F10> gT
 nnoremap <silent> <M-F11> gt
 " windows
-" C-F{1 2 4} code: ^[[{1;5P 1;5Q 1;5S} mapped to <fn>+{<left> <right> <down>}
-" M-F4       code: ^[[1;3S mapped to <fn>+<up>
+" C-F{1 2 4} code: ^[[{1;5P 1;5Q 1;5S} mapped to <fn>+<cmd>+{<left> <right> <down>}
+" M-F4       code: ^[[1;3S mapped to <fn>+<cmd>+<up>
 nnoremap <silent> [1;5P <C-w><Left>
 nnoremap <silent> [1;5Q <C-w><Right>
 nnoremap <silent> [1;3S <C-w><Up>
