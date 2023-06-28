@@ -12,7 +12,7 @@ bindkey -s '\el' "ls -hal\n"
 bindkey -s '\e.' "..\n"
 # go to last directory with <esc>+-
 bindkey -s '\e-' "cd -\n"
-# go home
+# go home with <esc>+h
 bindkey -s '\eh' "cd ~\n"
 
 # defined in history.zsh

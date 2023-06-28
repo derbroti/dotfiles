@@ -1,4 +1,4 @@
-# fixme - the load process here seems a bit bizarre
+# based on oh-my-zsh
 
 unsetopt menu_complete   # do not autoselect the first completion entry
 unsetopt flowcontrol

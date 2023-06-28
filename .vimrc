@@ -349,6 +349,7 @@ fun! s:CountTrailingWhites()
   return matchstr( cnt, '\d\+' )
 endfun
 
+" write without executing autocmds - e.g.: write without askinf to remove trailing whites
 command W :noautocmd :w
 
 let g:maxNumTrailWhite = 5
@@ -508,8 +509,13 @@ nnoremap <silent> [1;88P :set expandtab!<cr>
 " right now we get kicked out of insert mode...
 inoremap <silent> [1;88P <nop>
 
+
+"
 " map leader to <space> (for custom shortcuts without modifier keys)
+"
+"
 let mapleader = ' '
+
 " deactivate space - in case we press leader and nothing else, we would otherwise move the cursor
 nnoremap <space> <nop>
 " buffer
