@@ -137,8 +137,10 @@ let g:netrw_banner = 0
 let g:netrw_special_syntax = 1
 " highlight line
 let g:netrw_bufsettings = "noma nomod nonu nobl nowrap ro nornu cursorlineopt=line"
-"do not sort by folders first
-let g:netrw_sort_sequence = ''
+"do sort by folders first
+let g:netrw_sort_sequence = '[\/]$'
+" sort case independent
+let g:netrw_sort_options = "i"
 " always get fresh dir listing
 let g:netrw_fastbrowse = 0
 " show errors only
@@ -558,6 +560,10 @@ let s:NetrwWidth = 30
 fun s:ResizeNetrw(percent, win)
     :exec 'vert '.a:win.'res '.string(min([float2nr(floor(&columns * a:percent)), s:NetrwWidth]))
     let s:cur_nw_perc=a:percent
+    if exists("b:netrw_curdir")
+        let g:netrw_winsize = min([float2nr(floor(&columns * a:percent)), s:NetrwWidth])
+        call netrw#Call('NetrwRefresh', 1, w:netrw_treetop)
+    endif
 endfun
 
 augroup AutoResizeNetrw
@@ -644,6 +650,9 @@ au FileType netrw nnoremap <buffer><silent> <leftmouse> <leftmouse>:call <SID>Le
 au FileType netrw nnoremap <buffer><silent> <2-leftmouse> :<C-u>call <SID>MouseClick(1, 1)<cr>
 
 fun s:NetrwAutoHScroll()
+    " DISABLED
+    return
+
     " go to first col in line
     normal 0
     let l:line = getline(".")
@@ -664,11 +673,15 @@ endfun
 
 fun s:relResizeNetrw(inc)
     let s:cur_nw_perc=get(s:, 'cur_nw_perc', 0.3) + a:inc
-     :exec 'vert res '.string(float2nr(floor(&columns * s:cur_nw_perc)))
+    :exec 'vert res '.string(float2nr(floor(&columns * s:cur_nw_perc)))
+    if exists("b:netrw_curdir")
+        let g:netrw_winsize = float2nr(floor(&columns * s:cur_nw_perc))
+        call netrw#Call('NetrwRefresh', 1, w:netrw_treetop)
+    endif
 endfun
 
 " scroll so far that as much as possible of the file name is visible
-au CursorMoved * if &ft=='netrw'|:call <SID>NetrwAutoHScroll()|endif
+" au CursorMoved * if &ft=='netrw'|:call <SID>NetrwAutoHScroll()|endif
 
 " widen the view - in case of long file names
 au FileType netrw nnoremap <buffer><silent> <tab> :call <SID>relResizeNetrw(0.05)<cr>
@@ -700,15 +713,17 @@ fun s:CheckIfNetrwOnlyOpen()
 endfun
 
 " quit if we are the last window
+" also quits diff-mode
 " Note: to close a buffer without quitting: use :bd
 " (overwrites ex mode...)
-nnoremap <silent> Q :quit<cr><bar>:call <SID>CheckIfOnlyWindowClose()<cr>
+nnoremap <silent> Q :if &diff<bar>:cquit<bar>else<bar>:quit<bar>endif<cr><bar>:call <SID>CheckIfOnlyWindowClose()<cr>
 
 "if we have a search in netrw, n would not work together with autohscroll...
 " <shift>+n just works...
 " this jumps down one line and then looks for the next match
 " Note: this will skip a further match in a line
-au FileType netrw nnoremap <buffer><silent><expr> n &ft=='netrw' ? 'jn':'n'
+" DISABLED
+" au FileType netrw nnoremap <buffer><silent><expr> n &ft=='netrw' ? 'jn':'n'
 
 """""""""""""""""
 fun! s:GetBuffers()
