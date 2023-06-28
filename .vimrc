@@ -101,6 +101,23 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline#extensions#whitespace#mixed_indent_format = "[%s]…"
 let g:airline#extensions#whitespace#mixed_indent_file_format = "[%s]⋮"
 
+
+"""""""
+"
+" diff/merge config
+
+fun s:diffview()
+    wincmd l " focus middle window
+    " always start on line 1
+    exec 'norm gg'
+endfun
+
+if &diff
+    autocmd VimEnter * :call <SID>diffview()
+endif
+
+
+
 """""""
 
 """""""

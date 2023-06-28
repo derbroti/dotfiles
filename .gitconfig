@@ -26,3 +26,9 @@
 	ff = only
 [init]
 	defaultBranch = master
+[merge]
+	tool = vimdiff
+[difftool "vimdiff"]
+	cmd = vimdiff \"$LOCAL\" \"$REMOTE\"
+[mergetool "vimdiff"]
+	cmd = vimdiff \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
