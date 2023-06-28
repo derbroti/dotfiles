@@ -49,9 +49,6 @@ set pumheight=10
 " keep 1000 entries in the history (useful for searching)
 set history=1000
 
-" keep split views equal in size
-autocmd VimResized * wincmd =
-
 """"""""""
 " air-line
 " only load these extensions
