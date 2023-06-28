@@ -690,7 +690,7 @@ au FileType netrw nnoremap <buffer><silent> <S-tab> :call <SID>ResizeNetrw(0.2, 
 
 fun s:CheckIfOnlyWindowClose()
     if winnr('$') == 1 && &ft == 'netrw'
-        :quit
+        if &diff | :cquit | else | :quit | endif
     endif
 endfun
 
