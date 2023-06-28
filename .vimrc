@@ -53,7 +53,7 @@ set history=1000
 " air-line
 " only load these extensions
 " original: ['quickfix', 'netrw', 'term', 'whitespace', 'po', 'wordcount', 'keymap']
-let g:airline_extensions = ['netrw', 'term', 'whitespace', 'searchcount', 'coli']
+let g:airline_extensions = ['tagbar', 'netrw', 'term', 'whitespace', 'searchcount', 'coli']
 
 " the default - modified, slightly, by me
 let g:airline_theme='dark'
@@ -716,8 +716,8 @@ fun! s:GetBuffers()
     let l:dict = {'items': [], 'bufnr': []}
     for l:buf in l:bufs
         let l:type = getbufvar(l:buf.bufnr, '&ft')
-        " ignore help, netrw, and all unloaded and unlisted buffers
-        if l:type == 'help' || l:type == 'netrw' || ! (l:buf.loaded || l:buf.listed)
+        " ignore help, netrw, tagbar and all unloaded and unlisted buffers
+        if l:type == 'help' || l:type == 'netrw' || l:type == "tagbar" || ! (l:buf.loaded || l:buf.listed)
             continue
         endif
         " TODO shorten names...
@@ -824,9 +824,58 @@ exec "set <M-f>=\e[99;10~"
 nnoremap <silent> <M-f> :call <SID>ClangFormat(0)<cr>
 vnoremap <silent> <M-f> :call <SID>ClangFormat(1)<cr>
 
-" jump to last cursor position when opening files
+" jump to last cursor position when opening files / ignore commits
 " from: :help restore-cursor
 autocmd BufReadPost *
-    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' && &ft != 'netrw'
-    \ |   exe "normal! g`\""
+    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+    \ |   exec "normal! g`\""
     \ | endif
+
+
+" tagbar config
+"
+"
+let g:tagbar_width = 40
+let g:tagbar_compact = 0
+nnoremap <silent> <leader>t :TagbarToggle<CR>
+
+
+" vim-lsc config
+"
+"
+" only auto complete when we want to...
+let g:lsc_enable_autocomplete  = v:false
+let g:lsc_enable_diagnostics   = v:false
+let g:lsc_reference_highlights = v:false
+let g:lsc_trace_level          = 'off'
+let g:lsc_server_commands = {'cpp': {'command': 'clangd --compile-commands-dir=build --compile_args_from=filesystem --all-scopes-completion --background-index --cross-file-rename --completion-parse=always --completion-style=detailed --function-arg-placeholders --header-insertion-decorators --query-driver=/usr/bin/clang-* --limit-results=0 -j=4 --pch-storage=memory', 'log_level': -1, 'suppress_stderr': v:true}}
+
+"    \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
+"    \ 'FindReferences': 'gr',
+"    \ 'NextReference': '<C-n>',
+"    \ 'PreviousReference': '<C-p>',
+"    \ 'FindImplementations': 'gI',
+"    \ 'FindCodeActions': 'ga',
+"    \ 'Rename': 'gR',
+"    \ 'ShowHover': v:true,
+"    \ 'DocumentSymbol': 'go',
+"    \ 'WorkspaceSymbol': 'gS',
+let g:lsc_auto_map = {
+    \ 'SignatureHelp': 'gm',
+    \ 'GoToDefinition': '<C-]>',
+    \ 'Completion': 'omnifunc',
+    \}
+
+set completeopt=menu,menuone,noinsert,noselect
+
+autocmd FileType cpp let b:vcm_tab_complete = "omni"
+
+" augroup kill_lsc
+"     autocmd!
+"     autocmd VimLeave * exec 'norm! :LSClientDisable'
+" augroup END
+
+" keep split views equal in size - was automatic, is now manual
+" autocmd VimResized * wincmd =
+nnoremap <leader>= :wincmd =<cr>
+
