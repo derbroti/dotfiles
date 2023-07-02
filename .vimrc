@@ -739,7 +739,7 @@ au FileType netrw nnoremap <buffer><silent> <tab> :call <SID>relResizeNetrw(0.05
 au FileType netrw nnoremap <buffer><silent> <S-tab> :call <SID>ResizeNetrw(0.2, '')<CR>
 
 fun s:CheckIfOnlyWindowClose()
-    if winnr('$') == 1 && &ft == 'netrw'
+    if winnr('$') == 1 && (&ft == 'netrw' || &ft == 'tagbar' || &ft == 'undotree')
         if &diff | :cquit | else | :quit | endif
     endif
 endfun
