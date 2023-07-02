@@ -102,11 +102,12 @@ let g:airline_symbols.ellipsis = '…'
 
 " mode names
 let g:airline_mode_map = {
-    \ 'niI' : 'I-(NORMAL)',
-    \ 'niR' : 'R-(NORMAL)',
-    \ 'niV' : 'vR-(NORMAL)',
-    \ 'ic' : 'INSERT COMPL GEN',
-    \ 'Rc' : 'REPLACE COMP GEN'
+    \ 'niI' : 'I-NORMAL',
+    \ 'niR' : 'R-NORMAL',
+    \ 'niV' : 'vR-NORMAL',
+    \ 'Rv'  : 'V-REPLACE',
+    \ 'ic'  : 'INSERT COMPL GEN',
+    \ 'Rc'  : 'REPLACE COMP GEN'
     \ }
 
 " algo1: - do not do: <tab><space><tab>
