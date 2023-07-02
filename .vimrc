@@ -925,6 +925,9 @@ autocmd FileType tagbar hi TagbarHighlight cterm=Bold,underline
 """"""
 " VimCompletesMe
 
+set completeopt=menu,menuone,noinsert,noselect
+autocmd FileType cpp let b:vcm_tab_complete = "omni"
+autocmd FileType c let b:vcm_tab_complete = "omni"
 
 " vim-lsc config
 "
