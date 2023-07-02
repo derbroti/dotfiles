@@ -929,8 +929,80 @@ set completeopt=menu,menuone,noinsert,noselect
 autocmd FileType cpp let b:vcm_tab_complete = "omni"
 autocmd FileType c let b:vcm_tab_complete = "omni"
 
-" vim-lsc config
+""""""""""
+" vim-lsp config
 "
+
+if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd', '--function-arg-placeholders']},
+        \ 'allowlist': ['c', 'cpp'],
+        \ 'config': { 'hover_conceal': 1 },
+        \ })
+endif
+
+let g:lsp_diagnostics_signs_error = {'text': ' ✘'}
+let g:lsp_diagnostics_signs_warning = {'text': ' ⚑'}
+let g:lsp_diagnostics_signs_information = {'text': ' i'}
+let g:lsp_diagnostics_signs_hint = {'text': ' h'}
+
+hi LspErrorText ctermfg=196
+hi LspWarningText ctermfg=208
+hi LspInformationText cterm=bold ctermfg=51
+hi LspHintText cterm=bold ctermfg=226
+
+hi LspErrorHighlight cterm=underline ctermul=160
+hi LspWarningHighlight cterm=underline ctermul=208
+hi LspInformationHighlight cterm=underline ctermul=51
+hi LspHintHighlight cterm=underline ctermul=226
+
+" does not work for clangd?
+" let g:lsp_use_native_client = 1
+let g:lsp_fold_enabled = 0
+let g:lsp_ignorecase = v:true
+let g:lsp_document_highlight_enabled = 0
+let g:lsp_document_code_action_signs_enabled = 0
+let g:lsp_format_sync_timeout = 1000
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_highlights_enabled = 1
+let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_echo_delay = 200
+let g:lsp_diagnostics_signs_enabled = 1
+let g:lsp_diagnostics_signs_insert_mode_enabled = 0
+" enabling it is too distracting
+let g:lsp_diagnostics_virtual_text_enabled = 0
+" let g:lsp_diagnostics_virtual_text_prefix = '# '
+" let g:lsp_diagnostics_virtual_text_align = 'after'
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=number
+    " if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    "nmap <buffer> gi <plug>(lsp-implementation)
+    "nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    "nmap <buffer> K <plug>(lsp-hover)
+    "nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    "nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that have the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+
+""""""""""""""
+" asyncrun.vim
 "
 " only auto complete when we want to...
 let g:lsc_enable_autocomplete  = v:false
