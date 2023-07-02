@@ -22,6 +22,12 @@ set belloff=all
 let &t_Cs = "\e[4:3m"
 let &t_Ce = "\e[4:0m"
 
+" TODO
+" double, dotted and dasehd underlines
+" let &t_Us = "\e[4:2m"
+" let &t_ds = "\e[4:4m"
+" let &t_Ds = "\e[4:5m"
+
 " italics
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
