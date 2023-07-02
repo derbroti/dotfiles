@@ -1004,39 +1004,46 @@ augroup END
 """"""""""""""
 " asyncrun.vim
 "
-" only auto complete when we want to...
-let g:lsc_enable_autocomplete  = v:false
-let g:lsc_enable_diagnostics   = v:false
-let g:lsc_reference_highlights = v:false
-let g:lsc_trace_level          = 'off'
-let g:lsc_server_commands = {'cpp': {'command': 'clangd --compile-commands-dir=build --compile_args_from=filesystem --all-scopes-completion --background-index --cross-file-rename --completion-parse=always --completion-style=detailed --function-arg-placeholders --header-insertion-decorators --query-driver=/usr/bin/clang-* --limit-results=0 -j=4 --pch-storage=memory', 'log_level': -1, 'suppress_stderr': v:true}}
 
-"    \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
-"    \ 'FindReferences': 'gr',
-"    \ 'NextReference': '<C-n>',
-"    \ 'PreviousReference': '<C-p>',
-"    \ 'FindImplementations': 'gI',
-"    \ 'FindCodeActions': 'ga',
-"    \ 'Rename': 'gR',
-"    \ 'ShowHover': v:true,
-"    \ 'DocumentSymbol': 'go',
-"    \ 'WorkspaceSymbol': 'gS',
-let g:lsc_auto_map = {
-    \ 'SignatureHelp': 'gm',
-    \ 'GoToDefinition': '<C-]>',
-    \ 'Completion': 'omnifunc',
-    \}
+" do not rename the buffer, so our hack to name it like the -name param works
+let g:asyncrun_term_rename = -1
+nnoremap <Plug>MakeRunner :AsyncRun -mode=term -pos=bottom -rows=10 -focus=1 -name=<make-runner>
 
-set completeopt=menu,menuone,noinsert,noselect
+nnoremap <leader>M :bd <make-runner><CR>
 
-autocmd FileType cpp let b:vcm_tab_complete = "omni"
+nmap <leader>m <Plug>MakeRunner<space>make<CR>
+nmap <leader><C-m> <Plug>MakeRunner<space>make run<cr>
+" µ is <M-m> on my layout...
+nmap <leader>µ <Plug>MakeRunner<space>
 
-" augroup kill_lsc
-"     autocmd!
-"     autocmd VimLeave * exec 'norm! :LSClientDisable'
-" augroup END
+""""
 
-" keep split views equal in size - was automatic, is now manual
-" autocmd VimResized * wincmd =
-nnoremap <leader>= :wincmd =<cr>
+""""""""""
+" undotree
+"
+"
+nnoremap <leader>u :UndotreeToggle<cr>
 
+" diff over whole bottom, tree on right
+let g:undotree_WindowLayout = 4
+
+let g:undotree_HelpLine = 0
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_ShortIndicators = 1
+let g:undotree_CursorLine = 1
+autocmd FileType undotree set cursorlineopt=line
+
+let g:undotree_TreeNodeShape   = 'ο'
+let g:undotree_TreeReturnShape = '⟍'
+let g:undotree_TreeVertShape   = '│'
+let g:undotree_TreeSplitShape  = '╱'
+
+fun g:Undotree_CustomMap()
+    nmap <buffer> j <plug>UndotreeNextState
+    nmap <buffer> <up> <plug>UndotreeNextState
+    nmap <buffer> k <plug>UndotreePreviousState
+    nmap <buffer> <down> <plug>UndotreePreviousState
+endfun
+
+
+""""""
