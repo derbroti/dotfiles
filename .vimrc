@@ -896,6 +896,32 @@ autocmd BufReadPost *
     \ | endif
 
 
+
+""""""""""""""
+
+" undotree & tagbar helper
+"
+
+fun s:ToggleTagbarUndotree(tag, undo)
+    if a:tag && a:undo || ! a:tag && ! a:undo
+        return " never display both or neither...
+    endif
+
+    if a:tag
+        if undotree#UndotreeIsVisible()
+            call undotree#UndotreeHide()
+        endif
+        call tagbar#ToggleWindow()
+    elseif a:undo
+        if tagbar#IsOpen()
+            call tagbar#CloseWindow()
+        endif
+        call undotree#UndotreeToggle()
+    endif
+endfun
+
+
+""""""""""""
 " tagbar config
 "
 "
@@ -914,7 +940,10 @@ let g:tagbar_silent = 1
 " use the existing file, do not create an extra tmp copy
 let g:tagbar_use_cache = 0
 
-nnoremap <silent> <leader>t :TagbarToggle<CR>
+nnoremap <silent> <leader>t :call <SID>ToggleTagbarUndotree(1, 0)<cr>
+"TODO might be useful
+" :TagbarTogglePause
+
 autocmd FileType tagbar set cursorlineopt=line
 autocmd FileType tagbar setlocal breakat=',:'
 autocmd FileType tagbar hi TagbarHighlight cterm=Bold,underline
@@ -1022,7 +1051,7 @@ nmap <leader>µ <Plug>MakeRunner<space>
 " undotree
 "
 "
-nnoremap <leader>u :UndotreeToggle<cr>
+nnoremap <leader>u :call <SID>ToggleTagbarUndotree(0, 1)<cr>
 
 " diff over whole bottom, tree on right
 let g:undotree_WindowLayout = 4
