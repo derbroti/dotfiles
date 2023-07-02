@@ -70,7 +70,7 @@ set history=1000
 " air-line
 " only load these extensions
 " original: ['quickfix', 'netrw', 'term', 'whitespace', 'po', 'wordcount', 'keymap']
-let g:airline_extensions = ['tagbar', 'netrw', 'term', 'whitespace', 'searchcount', 'coli']
+let g:airline_extensions = ['netrw', 'term', 'whitespace', 'searchcount', 'coli']
 
 " the default - modified, slightly, by me
 let g:airline_theme='dark'
