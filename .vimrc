@@ -381,7 +381,7 @@ fun! s:CountTrailingWhites()
   return matchstr( cnt, '\d\+' )
 endfun
 
-" write without executing autocmds - e.g.: write without askinf to remove trailing whites
+" write without executing autocmds - e.g.: write without asking to remove trailing whites
 command W :noautocmd :w
 
 let g:maxNumTrailWhite = 5
@@ -389,8 +389,8 @@ augroup BUFWRITEHELPER
     autocmd!
     " based on: https://stackoverflow.com/q/8309728/2350114
     " Strip trailing whitespaces on each save
-    " but ask if there are more than X many if we simply want to keep them (legacy code and not
-    " getting annoyed with huge diffs)
+    " but ask if there are more than X many if we simply want to keep them
+    " (legacy code and not getting annoyed with huge diffs)
     fun s:StripTrailingWhitespaces()
         let l = line(".")
         let c = col(".")
@@ -550,9 +550,10 @@ let mapleader = ' '
 
 " deactivate space - in case we press leader and nothing else, we would otherwise move the cursor
 nnoremap <space> <nop>
-" buffer
+
+" new buffer
 nnoremap <silent> <leader>n :call <SID>CheckIfNetrwOnlyOpen()<cr>
-" tabs
+" new tab
 nnoremap <silent> <leader>c :tabnew<CR>
 
 " move to prev / next tab
@@ -594,6 +595,8 @@ hi Pmenu      cterm=none ctermfg=black ctermbg=white
 hi PmenuSel   cterm=none ctermfg=black ctermbg=blue
 hi PmenuSbar  cterm=none ctermfg=black ctermbg=white
 hi PmenuThumb cterm=none ctermfg=white ctermbg=darkblue
+
+
 
 """""""""""""""""
 " netrw continued
