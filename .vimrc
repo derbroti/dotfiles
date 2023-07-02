@@ -730,6 +730,7 @@ fun s:relResizeNetrw(inc)
 endfun
 
 " scroll so far that as much as possible of the file name is visible
+" DISABLED
 " au CursorMoved * if &ft=='netrw'|:call <SID>NetrwAutoHScroll()|endif
 
 " widen the view - in case of long file names
