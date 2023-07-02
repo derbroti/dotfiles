@@ -1513,17 +1513,6 @@
 					<key>Text</key>
 					<string>[1;2P</string>
 				</dict>
-				<key>0xf704-0x40000-0x7a</key>
-				<dict>
-					<key>Action</key>
-					<integer>10</integer>
-					<key>Escaping</key>
-					<integer>2</integer>
-					<key>Text</key>
-					<string>[1;5P</string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
 				<key>0xf704-0x80000-0x7a</key>
 				<dict>
 					<key>Action</key>
@@ -1719,34 +1708,12 @@
 					<key>Text</key>
 					<string>[21;2~</string>
 				</dict>
-				<key>0xf70d-0x80000-0x6d</key>
-				<dict>
-					<key>Action</key>
-					<integer>10</integer>
-					<key>Escaping</key>
-					<integer>2</integer>
-					<key>Text</key>
-					<string>[21;3~</string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
 				<key>0xf70e-0x20000</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
 					<key>Text</key>
 					<string>[23;2~</string>
-				</dict>
-				<key>0xf70e-0x80000-0x67</key>
-				<dict>
-					<key>Action</key>
-					<integer>10</integer>
-					<key>Escaping</key>
-					<integer>2</integer>
-					<key>Text</key>
-					<string>[23;3~</string>
-					<key>Version</key>
-					<integer>2</integer>
 				</dict>
 				<key>0xf70f-0x20000</key>
 				<dict>
@@ -1773,7 +1740,7 @@
 					<key>Escaping</key>
 					<integer>2</integer>
 					<key>Text</key>
-					<string>[1;5P</string>
+					<string>[99;11~</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
@@ -1784,7 +1751,7 @@
 					<key>Escaping</key>
 					<integer>2</integer>
 					<key>Text</key>
-					<string>[21;3~</string>
+					<string>[99;12~</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
@@ -1795,7 +1762,7 @@
 					<key>Escaping</key>
 					<integer>2</integer>
 					<key>Text</key>
-					<string>[1;5Q</string>
+					<string>[99;13~</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
@@ -1806,7 +1773,7 @@
 					<key>Escaping</key>
 					<integer>2</integer>
 					<key>Text</key>
-					<string>[23;3~</string>
+					<string>[99;14~</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
@@ -1817,7 +1784,7 @@
 					<key>Escaping</key>
 					<integer>2</integer>
 					<key>Text</key>
-					<string>[1;3S</string>
+					<string>[99;15~</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
@@ -1828,7 +1795,7 @@
 					<key>Escaping</key>
 					<integer>2</integer>
 					<key>Text</key>
-					<string>[1;5S</string>
+					<string>[99;16~</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>

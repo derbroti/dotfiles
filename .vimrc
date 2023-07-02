@@ -554,18 +554,24 @@ nnoremap <space> <nop>
 nnoremap <silent> <leader>n :call <SID>CheckIfNetrwOnlyOpen()<cr>
 " tabs
 nnoremap <silent> <leader>c :tabnew<CR>
-" prev tab / next tab
-" M-F10 code: ^[[21;3~ mapped to <fn>+<cmd>+<alt>+<left>
-" M-F11 code: ^[[23;3~ mapped to <fn>+<cmd>+<alt>+<right>
-nnoremap <silent> <M-F10> gT
-nnoremap <silent> <M-F11> gt
-" windows
-" C-F{1 2 4} code: ^[[{1;5P 1;5Q 1;5S} mapped to <fn>+<cmd>+{<left> <right> <down>}
-" M-F4       code: ^[[1;3S mapped to <fn>+<cmd>+<up>
-nnoremap <silent> [1;5P <C-w><Left>
-nnoremap <silent> [1;5Q <C-w><Right>
-nnoremap <silent> [1;3S <C-w><Up>
-nnoremap <silent> [1;5S <C-w><Down>
+
+" move to prev / next tab
+" [99;12~ mapped to <fn>+<cmd>+<alt>+<left>
+" [99;14~ mapped to <fn>+<cmd>+<alt>+<right>
+nnoremap <silent> [99;12~ gT
+nnoremap <silent> [99;14~ gt
+
+" move between windows
+" [99;11~ [99;13~ [99;15~ [99;16~ mapped to <fn>+<cmd>+{<left> <right> <up> <down>}
+nnoremap <silent> [99;11~ <C-w><Left>
+" inoremap <silent> [99;1~ <C-w><Left>
+nnoremap <silent> [99;13~ <C-w><Right>
+nnoremap <silent> [99;15~ <C-w><Up>
+nnoremap <silent> [99;16~ <C-w><Down>
+
+" keep split views equal in size - was automatic, is now manual
+" autocmd VimResized * wincmd =
+nnoremap <leader>= :wincmd =<cr>
 
 " spell check
 hi SpellBad   cterm=italic,undercurl ctermfg=None ctermbg=None ctermul=160
