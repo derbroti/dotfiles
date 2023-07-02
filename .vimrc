@@ -141,8 +141,10 @@ endif
 
 " tree
 let g:netrw_liststyle = 3
-"disable i (changing liststyle)
+" disable i (changing liststyle)
 au FileType netrw nnoremap <buffer> i <nop>
+" disable t
+au FileType netrw nnoremap <buffer> t <nop>
 " open file in previous window
 let g:netrw_browse_split = 4
 " open file on right side
