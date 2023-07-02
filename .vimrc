@@ -1,3 +1,14 @@
+"""""
+" required plugins:
+"
+" VimCompletesMe
+" tagbar
+" vim-airline
+" vim-lsp
+" asyncrun.vim
+" undotree
+
+
 set nocompatible
 "set term=alacritty
 set term=xterm-256color
