@@ -2203,10 +2203,12 @@
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>1</real>
+				<real>0.99999994039535522</real>
 				<key>Red Component</key>
 				<real>1</real>
 			</dict>
+			<key>Unicode Version</key>
+			<integer>9</integer>
 			<key>Unlimited Scrollback</key>
 			<true/>
 			<key>Use Bold Font</key>
@@ -2222,7 +2224,7 @@
 			<key>Use Tab Color</key>
 			<false/>
 			<key>Use Underline Color</key>
-			<true/>
+			<false/>
 			<key>Use libtickit protocol</key>
 			<false/>
 			<key>Vertical Spacing</key>
