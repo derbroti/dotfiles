@@ -568,9 +568,9 @@ nnoremap <silent> [1;3S <C-w><Up>
 nnoremap <silent> [1;5S <C-w><Down>
 
 " spell check
-hi SpellBad   cterm=italic,undercurl ctermfg=None ctermbg=None ctermul=196
-hi SpellLocal cterm=italic,undercurl ctermfg=None ctermbg=None ctermul=201
-hi SpellCap   cterm=undercurl        ctermfg=None ctermbg=None ctermul=46
+hi SpellBad   cterm=italic,undercurl ctermfg=None ctermbg=None ctermul=160
+hi SpellLocal cterm=italic,undercurl ctermfg=None ctermbg=None ctermul=165
+hi SpellCap   cterm=undercurl        ctermfg=None ctermbg=None ctermul=40
 hi SpellRare  cterm=undercurl        ctermfg=None ctermbg=None ctermul=45
 nnoremap <silent> <leader>6 :set spell! spelllang=en_us<CR>
 " suggest at most 10 corrections
