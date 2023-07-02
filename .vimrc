@@ -778,10 +778,10 @@ fun! s:GetBuffers()
     let l:dict = {'items': [], 'bufnr': []}
     for l:buf in l:bufs
         let l:type = getbufvar(l:buf.bufnr, '&ft')
-        " ignore help, buffer that don't have a cursorline
+        " ignore help, buffer that have a cursorlineopt with 'line'
         " (should cover things like netrw,tagbar,undotree, etc)
         " and all unloaded and unlisted buffers
-        if l:type == 'help' || ! &cursorline || ! (l:buf.loaded || l:buf.listed)
+        if l:type == 'help' || &cursorlineopt == 'line' || ! (l:buf.loaded || l:buf.listed)
             continue
         endif
         " TODO shorten names...
