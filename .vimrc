@@ -1142,7 +1142,7 @@ nmap <leader>µ <Plug>MakeRunner<space>
 " undotree
 "
 "
-nnoremap <leader>u :call <SID>ToggleTagbarUndotree(0, 1)<cr>
+nnoremap <silent> <leader>u :call <SID>ToggleTagbarUndotree(0, 1)<cr>
 
 " diff over whole bottom, tree on right
 let g:undotree_WindowLayout = 4
