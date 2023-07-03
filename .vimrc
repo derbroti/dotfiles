@@ -192,6 +192,10 @@ set splitright
 
 """"""
 
+"""""""""""""
+" Yank helper
+"
+
 " do not yank everything into clipboard, only */+ reg
 set clipboard=
 
@@ -230,6 +234,78 @@ if has('independent_clip_regs')
         autocmd ReadClipPre   * call ReadYank()
     augroup END
 endif
+
+
+""""
+
+let s:yank_store = []
+let s:yank_max = 50
+
+hi YankColor       ctermbg=0 ctermfg=255
+hi YankColorBorder ctermbg=0 ctermfg=123
+
+augroup YankBank
+    autocmd!
+    fun s:StoreYank()
+        if v:event.operator == 'y'
+            let l:yank = join(v:event.regcontents, "\<NL>")
+            " avoid dups
+            if empty(s:yank_store) || l:yank != s:yank_store[-1]
+                let s:yank_store = [l:yank] + s:yank_store
+                let s:yank_store = s:yank_store[:s:yank_max]
+            endif
+        endif
+    endfun
+    fun s:SelectYank(id, result)
+        if a:result > 0
+            let l:idx = a:result - 1
+            let l:selected = remove(s:yank_store, l:idx)
+            call setreg('', l:selected)
+            " sort selected yank to front
+            let s:yank_store = [l:selected] + s:yank_store
+        endif
+    endfun
+    fun s:ShowYank()
+        let l:space_right = &columns - col('.')
+        let l:pop_opt = { 'title': "Select Yank",
+                        \ 'padding': [0,0,0,0],
+                        \ 'borderchars': ['─', '│', '─', '│', '┌', '┐', '┘', '└'],
+                        \ 'pos': 'botleft',
+                        \ 'highlight': 'YankColor',
+                        \ 'borderhighlight': ['YankColorBorder'],
+                        \ 'line': 'cursor-1',
+                        \ 'col': 'cursor+1',
+                        \ 'zindex': '200',
+                        \ 'drag': 0,
+                        \ 'wrap': 0,
+                        \ 'cursorline': 1,
+                        \ 'maxwidth': float2nr(l:space_right * 0.75),
+                        \ 'maxheight': &pumheight,
+                        \ 'scrollbar': 1,
+                        \ 'filter': 'popup_filter_menu',
+                        \ 'mapping': 0,
+                        \ 'callback': '<SID>SelectYank'}
+        if l:space_right < col('.')
+            let l:pop_opt['pos'] = 'botright'
+            let l:pop_opt['maxwidth'] = float2nr(col('.') * 0.75)
+        endif
+        " leaves room for: \" ...\" and the border
+        let l:format_space = l:pop_opt['maxwidth'] - 4 - 4
+
+        " TODO: maybe color the ... in bold? or use another symbol...
+        " pad here, so the highlight covers all (padding is not covered by the selection highlight)
+        let l:ShortenYanks = { idx, val -> ' ' . (strcharlen(val) >= l:format_space ?
+                              \ val[0:l:format_space] . ' ...' : val) . ' ' }
+        call popup_menu(mapnew(s:yank_store, l:ShortenYanks), l:pop_opt)
+    endfun
+
+    autocmd TextYankPost * call <SID>StoreYank()
+    nnoremap <silent> <leader>p :call <SID>ShowYank()<cr>
+augroup END
+
+
+""""""""
+
 
 " enable file plugin, detection and indent
 filetype plugin indent on
