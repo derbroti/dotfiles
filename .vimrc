@@ -178,6 +178,10 @@ let g:netrw_preview = 1
 " disable mouse buttons - see below for our replacements
 let g:netrw_mousemaps = 0
 
+" force cursor to always be leftmost, to not be in the way
+au FileType netrw nnoremap <buffer> <up> 0k
+au FileType netrw nnoremap <buffer> <down> 0j
+
 " split new buffer to the right
 set splitright
 
@@ -950,6 +954,10 @@ nnoremap <silent> <leader>t :call <SID>ToggleTagbarUndotree(1, 0)<cr>
 autocmd FileType tagbar set cursorlineopt=line
 autocmd FileType tagbar setlocal breakat=',:'
 autocmd FileType tagbar hi TagbarHighlight cterm=Bold,underline
+
+" force cursor to always be leftmost, to not be in the way
+au FileType tagbar nnoremap <buffer> <up> 0k
+au FileType tagbar nnoremap <buffer> <down> 0j
 
 " TODO hide cursor? but only locally...
 " autocmd FileType tagbar setlocal t_ve=
