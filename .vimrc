@@ -251,8 +251,7 @@ augroup YankBank
             let l:yank = join(v:event.regcontents, "\<NL>")
             " avoid dups
             if empty(s:yank_store) || l:yank != s:yank_store[-1]
-                let s:yank_store = [l:yank] + s:yank_store
-                let s:yank_store = s:yank_store[:s:yank_max]
+                let s:yank_store = [l:yank] + s:yank_store[:s:yank_max]
             endif
         endif
     endfun
