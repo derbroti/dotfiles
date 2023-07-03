@@ -66,6 +66,11 @@ set pumheight=10
 " keep 1000 entries in the history (useful for searching)
 set history=1000
 
+
+" map leader to <space> (for custom shortcuts without modifier keys)
+let mapleader = ' '
+
+
 """"""""""
 " air-line
 " only load these extensions
@@ -548,11 +553,8 @@ nnoremap <silent> [1;88P :set expandtab!<cr>
 inoremap <silent> [1;88P <nop>
 
 
-"
-" map leader to <space> (for custom shortcuts without modifier keys)
-"
-"
-let mapleader = ' '
+"""""""""""
+"""""""""""
 
 " deactivate space - in case we press leader and nothing else, we would otherwise move the cursor
 nnoremap <space> <nop>
