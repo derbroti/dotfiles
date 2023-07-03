@@ -901,6 +901,8 @@ endfun
 nnoremap <silent> <leader>? :call <SID>BufferPopup()<cr>
 
 
+"""""""""""
+
 " based on: https://github.com/cjuniet/clang-format.vim
 " The visual selection mode replaces only the selected lines
 fun s:ClangFormat(vis) range
@@ -973,13 +975,13 @@ exec "set <M-f>=\e[99;10~"
 nnoremap <silent> <M-f> :call <SID>ClangFormat(0)<cr>
 vnoremap <silent> <M-f> :call <SID>ClangFormat(1)<cr>
 
+
 " jump to last cursor position when opening files / ignore commits
 " from: :help restore-cursor
 autocmd BufReadPost *
     \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
     \ |   exec "normal! g`\""
     \ | endif
-
 
 
 """"""""""""""
@@ -1040,12 +1042,14 @@ au FileType tagbar nnoremap <buffer> <down> 0j
 " TODO hide cursor? but only locally...
 " autocmd FileType tagbar setlocal t_ve=
 
+
 """"""
 " VimCompletesMe
 
 set completeopt=menu,menuone,noinsert,noselect
 autocmd FileType cpp let b:vcm_tab_complete = "omni"
 autocmd FileType c let b:vcm_tab_complete = "omni"
+
 
 """"""""""
 " vim-lsp config
