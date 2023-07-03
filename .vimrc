@@ -60,7 +60,7 @@ set wildmenu
 " can't select in them though...
 set wildmode=list:longest
 
-" limit pop-up height - currently set for limiting the spell suggestions
+" limit pop-up height
 set pumheight=10
 
 " keep 1000 entries in the history (useful for searching)
