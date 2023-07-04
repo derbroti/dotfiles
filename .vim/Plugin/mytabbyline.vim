@@ -3,22 +3,24 @@
 " based on: https://stackoverflow.com/a/33765365/2350114
 function! MyTabbyLine()
   let s = ''
+  let l:sess = get(v:, "this_session", '')
+  if ! empty(l:sess)
+    let l:sess = substitute(l:sess, '^.*/', '', '')
+    let s .= '%#TabLineSess# «' . l:sess . '» '
+  endif
   " loop through each tab page
   for i in range(tabpagenr('$'))
     let sel = i + 1 == tabpagenr()
-    if sel
-      let s .= '%#TabLineSel#'
-    else
-      let s .= '%#TabLine#'
-    endif
-    if sel
-      let s .= '%#TabLineSel#' " WildMenu #???
-    else
-      let s .= '%#TabLine#'
-    endif
+    let s .= sel ? '%#TabLineSel#' : '%#TabLine#'
+    " if sel
+    "   let s .= '%#TabLineSel#' " WildMenu #???
+    " else
+    "   let s .= '%#TabLine#'
+    " endif
     " set the tab page number (for mouse clicks)
-    let s .= '%' . (i + 1) . 'T '
+    let s .= '%' . (i + 1) . 'T'
     " set page number string
+    let s .= sel ? '[ ' : '  '
     let s .= i + 1
     " get buffer names and statuses
     let n = ''  " temp str for buf names
@@ -43,13 +45,13 @@ function! MyTabbyLine()
         " add buffer names
         let bn = bufname(b)
         if bn == ''
-          let bn = '[No Name]'
+          let bn = '<No Name>'
         endif
         let n .= fnamemodify(bn, ':t')
         if i + 1 == tabpagenr()
-          let n .= '%#TabLineSel# '
+          let n .= '%#TabLineSel# ]'
         else
-          let n .= '%#TabLine# '
+          let n .= '%#TabLine#  '
         endif
 
         let n .= '|' " pathshorten(bufname(b))
@@ -57,14 +59,13 @@ function! MyTabbyLine()
     endfor
     "??? "let n .= fnamemodify(bufname(buflist[tabpagewinnr(i + 1) - 1]), ':t')
     let n = substitute(n, '|$', '', '')
-
-    let s.= ')'
-
-    if i + 1 == tabpagenr()
-      let s .= '%#TabLineSel#'
-    else
-      let s .= '%#TabLine#'
-    endif
+    "<nr>: <name>
+    let s.= ':'
+    " if i + 1 == tabpagenr()
+    "   let s .= '%#TabLineSel#'
+    " else
+    "   let s .= '%#TabLine#'
+    " endif
 
     let s .= n
   endfor
