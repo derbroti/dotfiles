@@ -22,6 +22,8 @@ function! MyTabbyLine()
     " set page number string
     let s .= sel ? '[ ' : '  '
     let s .= i + 1
+    "<nr>: <name>
+    let s.= ':'
     " get buffer names and statuses
     let n = ''  " temp str for buf names
     "" let m = 0   " &modified counter
@@ -49,18 +51,21 @@ function! MyTabbyLine()
         endif
         let n .= fnamemodify(bn, ':t')
         if i + 1 == tabpagenr()
-          let n .= '%#TabLineSel# ]'
+          let n .= '%#TabLineSel# '
         else
-          let n .= '%#TabLine#  '
+          let n .= '%#TabLine# '
         endif
 
         let n .= '|' " pathshorten(bufname(b))
       endif
     endfor
     "??? "let n .= fnamemodify(bufname(buflist[tabpagewinnr(i + 1) - 1]), ':t')
-    let n = substitute(n, '|$', '', '')
-    "<nr>: <name>
-    let s.= ':'
+    let n = substitute(n, ' |$', ' ', '')
+    if i + 1 == tabpagenr()
+      let n .= ']'
+    else
+      let n .= ' '
+    endif
     " if i + 1 == tabpagenr()
     "   let s .= '%#TabLineSel#'
     " else
