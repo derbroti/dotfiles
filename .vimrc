@@ -409,12 +409,14 @@ set mouse=a
 
 set ruler
 
+let s:proj_dir = './.vim_proj/'
+
 set swapfile
 let s:swp_dir = s:vimrc_path . '/.safetynet/swp//'
 if !exists(s:swp_dir)
     call mkdir(s:swp_dir, 'p', 0700)
 endif
-let &directory = s:swp_dir
+let &directory = s:proj_dir . ',' . s:swp_dir
 
 set undofile
 " undo goes BRRRRRR
@@ -423,7 +425,7 @@ let s:undo_dir = s:vimrc_path . '/.safetynet/undo//'
 if !exists(s:undo_dir)
     call mkdir(s:undo_dir, 'p', 0700)
 endif
-let &undodir = s:undo_dir
+let &undodir = s:proj_dir . ',' . s:undo_dir
 
 " TODO check back if you shot yourself in the foot with this 01.07.23)
 set nobackup
