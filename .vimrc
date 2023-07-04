@@ -1137,12 +1137,14 @@ augroup END
 let g:asyncrun_term_rename = -1
 nnoremap <Plug>MakeRunner :AsyncRun -mode=term -pos=bottom -rows=10 -focus=1 -name=<make-runner>
 
-nnoremap <leader>M :bd <make-runner><CR>
+nnoremap <silent> <leader>M :bd <make-runner><CR>
+" close terminal with <C-w>+<shift>+m
+tnoremap <silent> M :bd!<CR>
 
-nmap <leader>m <Plug>MakeRunner<space>make<CR>
-nmap <leader><C-m> <Plug>MakeRunner<space>make run<cr>
+nmap <silent> <leader>m <Plug>MakeRunner<space>make<CR>
+nmap <silent> <leader><C-m> <Plug>MakeRunner<space>make run<cr>
 " µ is <M-m> on my layout...
-nmap <leader>µ <Plug>MakeRunner<space>
+nmap <silent> <leader>µ <Plug>MakeRunner<space>$SHELL<cr>
 
 """"
 
