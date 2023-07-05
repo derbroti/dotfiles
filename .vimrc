@@ -500,6 +500,8 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set nofoldenable
+hi FoldColumn     ctermbg=235 ctermfg=61
+hi Folded         ctermbg=235 ctermfg=61
 
 " prints ''x line yanked'' etc for x starting from 1
 set report=0
