@@ -1091,6 +1091,7 @@ let g:lsp_hover_conceal = 0
 let g:lsp_ignorecase = v:true
 let g:lsp_document_highlight_enabled = 0
 let g:lsp_document_code_action_signs_enabled = 0
+let g:lsp_signature_help_delay = 1000
 let g:lsp_format_sync_timeout = 1000
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_highlights_enabled = 1
