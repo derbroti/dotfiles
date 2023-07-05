@@ -71,6 +71,7 @@ set history=1000
 " map leader to <space> (for custom shortcuts without modifier keys)
 let mapleader = ' '
 
+let g:Unnamed_buffer_name = '[No Name]'
 
 """"""""""
 " air-line

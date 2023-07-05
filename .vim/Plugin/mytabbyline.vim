@@ -10,8 +10,8 @@ function! MyTabbyLine()
   endif
   " loop through each tab page
   for i in range(tabpagenr('$'))
-    let sel = i + 1 == tabpagenr()
-    let s .= sel ? '%#TabLineSel#' : '%#TabLine#'
+    let l:sel = i + 1 == tabpagenr()
+    let s .= l:sel ? '%#TabLineSel#' : '%#TabLine#'
     " if sel
     "   let s .= '%#TabLineSel#' " WildMenu #???
     " else
@@ -23,41 +23,45 @@ function! MyTabbyLine()
     let s .= sel ? '[ ' : '  '
     let s .= i + 1
     "<nr>: <name>
-    let s.= ':'
+    let s .= ':'
     " get buffer names and statuses
     let n = ''  " temp str for buf names
     "" let m = 0   " &modified counter
+
     let buflist = tabpagebuflist(i + 1)
     " loop through each buffer in a tab
+    let l:buf_nr = 1
+    let l:act_buf = winnr()
     for b in buflist
       if getbufvar(b, "&buftype") == 'help'
         " let n .= '[H]' . fnamemodify(bufname(b), ':t:s/.txt$//')
       elseif getbufvar(b, "&buftype") == 'quickfix'
         " let n .= '[Q]'
       elseif getbufvar(b, "&modifiable")
+        let n .= ' %#TabLine'
         if getbufvar(b, "&modified")
-          if i + 1 == tabpagenr()
-            let n .= ' %#TabLineSelMod#'
-          else
-            let n .= ' %#TabLineMod#'
-          endif
+          let n .= l:sel ? 'SelMod' : 'Mod'
         else
-          let n .= ' '
+          let n .= l:sel ? 'Sel' : ''
         endif
         " add buffer names
-        let bn = bufname(b)
-        if bn == ''
-          let bn = '<No Name>'
-        endif
-        let n .= fnamemodify(bn, ':t')
-        if i + 1 == tabpagenr()
-          let n .= '%#TabLineSel# '
-        else
-          let n .= '%#TabLine# '
-        endif
+        let l:b = bufname(b)
+        let bn = l:b == '' ? g:Unnamed_buffer_name : l:b
 
-        let n .= '|' " pathshorten(bufname(b))
+        if &diff && l:b =~ 'LOCAL'
+          let bn = 'MINE(local)'
+        elseif &diff && l:b =~ 'REMOTE'
+          let bn = 'THEIRS(remote)'
+        endif
+        let bn = fnamemodify(bn, ':t')
+        if l:sel && l:buf_nr == l:act_buf
+          let n .= 'Buf#' . bn
+        else
+          let n .= '#' . bn
+        endif
+        let n .= l:sel ? '%#TabLineSel# |' : '%#TabLine# |'
       endif
+      let l:buf_nr += 1
     endfor
     "??? "let n .= fnamemodify(bufname(buflist[tabpagewinnr(i + 1) - 1]), ':t')
     let n = substitute(n, ' |$', ' ', '')
