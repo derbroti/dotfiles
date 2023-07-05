@@ -95,9 +95,9 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
-let g:airline_symbols.colnr = '|'
+let g:airline_symbols.colnr = ''
 let g:airline_symbols.crypt = '🔒'
-let g:airline_symbols.linenr = ' '
+let g:airline_symbols.linenr = ''
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
@@ -360,13 +360,8 @@ set cmdwinheight=10
 " set my tabline and set its colors
 set tabline=%!MyTabbyLine()
 set showtabline=2
-" initial - will be replaced on focus change in coli.vim
-hi TabLineFill   ctermfg=DarkBlue
-hi TabLine       ctermfg=Black ctermbg=DarkBlue cterm=None
-hi TabLineSel    ctermfg=Blue  ctermbg=Black    cterm=None
-hi TabLineSelMod ctermfg=129   ctermbg=Black    cterm=None
-hi TabLineMod    ctermfg=201   ctermbg=DarkBlue cterm=Bold
-hi TabLineSess   ctermfg=16    ctermbg=248      cterm=None
+" initialize Tabline and Searchbar colors
+call airline#extensions#coli#ColorTabline()
 
 set sessionoptions=globals,blank,buffers,tabpages,winsize,terminal
 let &sessionoptions .= exists('.vim_proj') ? ',sesdir' : ',curdir'
@@ -466,8 +461,6 @@ inoremap <nowait><silent><C-c> <ESC><bar>:call airline#extensions#coli#Cccheck()
 
 hi Search cterm=NONE ctermfg=232 ctermbg=13
 hi IncSearch cterm=NONE ctermfg=0 ctermbg=207
-" initial - will be replaced on focus change in coli.vim
-hi SearchBar cterm=NONE ctermfg=13 ctermbg=0
 
 " from https://vi.stackexchange.com/a/20661/40602
 fun! s:CountTrailingWhites()
@@ -531,7 +524,7 @@ fun s:HighlightVisualSelection()
     exec ':match HighlightMatch /' . <SID>GetVisualLineSelection() . '/'
 endfun
 
-hi HighlightMatch cterm=NONE ctermfg=Black ctermbg=6
+hi HighlightMatch cterm=NONE ctermfg=0 ctermbg=6
 " press * to match word under cursor
 nnoremap <silent> * :exec 'match HighlightMatch /'.expand('<cword>').'/'<CR>
 " works for multiple lines in visual(block) mode
