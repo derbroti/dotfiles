@@ -1127,7 +1127,7 @@ function! s:on_lsp_buffer_enabled() abort
     "nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
     "nmap <buffer> gi <plug>(lsp-implementation)
     "nmap <buffer> gt <plug>(lsp-type-definition)
-    hi ArgSelDelim ctermbg=blue ctermfg=blue
+    hi ArgSelDelim ctermbg=blue ctermfg=white
     hi ArgSel ctermbg=blue ctermfg=black
     au Syntax * syntax match ArgSelDelim /`/
     au Syntax * syntax region ArgSel matchgroup=ArgSelDelim start=/`/ end=/`/

@@ -1814,7 +1814,7 @@
 				<real>0.0</real>
 			</dict>
 			<key>Minimum Contrast</key>
-			<real>0.2626953125</real>
+			<real>0.26</real>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Movement Keys Scroll Outside Interactive Apps</key>
@@ -2203,7 +2203,7 @@
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.99999994039535522</real>
+				<real>1</real>
 				<key>Red Component</key>
 				<real>1</real>
 			</dict>
