@@ -631,11 +631,7 @@ nnoremap <silent> <ins> :set paste!<cr>
 
 " M-tab
 " toggle replacing tabs with spaces
-nnoremap <silent> [1;88P :set expandtab!<cr>
-" TODO why does this still trigger expandtab???
-" right now we get kicked out of insert mode...
-inoremap <silent> [1;88P <nop>
-
+nnoremap <silent> [99;20~ :set expandtab!<cr>
 
 """""""""""
 """""""""""

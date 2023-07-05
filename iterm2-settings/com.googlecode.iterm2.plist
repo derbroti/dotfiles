@@ -1256,7 +1256,7 @@
 					<key>Escaping</key>
 					<integer>2</integer>
 					<key>Text</key>
-					<string>[1;88P</string>
+					<string>[99;20~</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
