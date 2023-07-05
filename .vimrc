@@ -149,7 +149,7 @@ endif
 let g:netrw_liststyle = 3
 " disable i (changing liststyle)
 au FileType netrw nnoremap <buffer> i <nop>
-" disable t
+" disable t (interferes with tagbar maps)
 au FileType netrw nnoremap <buffer> t <nop>
 " open file in previous window
 let g:netrw_browse_split = 4
@@ -1065,7 +1065,7 @@ if executable('clangd')
         \ 'name': 'clangd',
         \ 'cmd': {server_info->['clangd', '--function-arg-placeholders']},
         \ 'allowlist': ['c', 'cpp'],
-        \ 'config': { 'hover_conceal': 1 },
+        \ 'config': { 'hover_conceal': 1 }
         \ })
 endif
 
@@ -1102,6 +1102,7 @@ let g:lsp_diagnostics_signs_insert_mode_enabled = 0
 let g:lsp_diagnostics_virtual_text_enabled = 0
 " let g:lsp_diagnostics_virtual_text_prefix = '# '
 " let g:lsp_diagnostics_virtual_text_align = 'after'
+
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
