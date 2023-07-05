@@ -367,7 +367,8 @@ hi TabLineSelMod ctermfg=129   ctermbg=Black    cterm=None
 hi TabLineMod    ctermfg=201   ctermbg=DarkBlue cterm=Bold
 hi TabLineSess   ctermfg=16    ctermbg=248      cterm=None
 
-set sessionoptions=options,blank,buffers,curdir,tabpages,winsize,terminal
+set sessionoptions=globals,blank,buffers,tabpages,winsize,terminal
+let &sessionoptions .= exists('.vim_proj') ? ',sesdir' : ',curdir'
 
 " make the status bar more visible if we have one than one window open
 " makes it also more visible if we split vertically, but well... you can't have it all...
