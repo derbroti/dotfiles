@@ -132,6 +132,15 @@ fun s:diffview()
     wincmd l " focus middle window
     " always start on line 1
     exec 'norm gg'
+    " next diff
+    nnoremap ] ]c
+    " prev diff
+    nnoremap [ [c
+    " ignore white space diffs
+    set diffopt+=iwhite
+    " show 2 lines around the diff
+    set diffopt+=context:2
+
 endfun
 
 if &diff
