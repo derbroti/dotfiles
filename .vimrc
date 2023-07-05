@@ -1200,9 +1200,7 @@ let NERDTreeShowBookmarks = 0
 " single: folder open; double: file open
 let NERDTreeMouseMode = 1
 let NERDTreeShowHidden=1
-let NERDTreeSortOrder = '[\/]$'
-" let vim-airline handle this
-"let NERDTreeStatusline = -1
+let NERDTreeSortOrder = ['[\/]$']
 let NERDTreeWinSize = s:NetrwWidth
 let NERDTreeMinimalUI=1
 " open only what I tell you to open
