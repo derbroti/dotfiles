@@ -1091,6 +1091,7 @@ hi LspHintHighlight cterm=underline ctermul=226
 " does not work for clangd?
 " let g:lsp_use_native_client = 1
 let g:lsp_fold_enabled = 0
+let g:lsp_hover_conceal = 0
 let g:lsp_ignorecase = v:true
 let g:lsp_document_highlight_enabled = 0
 let g:lsp_document_code_action_signs_enabled = 0
@@ -1126,6 +1127,10 @@ function! s:on_lsp_buffer_enabled() abort
     "nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
     "nmap <buffer> gi <plug>(lsp-implementation)
     "nmap <buffer> gt <plug>(lsp-type-definition)
+    hi ArgSelDelim ctermbg=blue ctermfg=blue
+    hi ArgSel ctermbg=blue ctermfg=black
+    au Syntax * syntax match ArgSelDelim /`/
+    au Syntax * syntax region ArgSel matchgroup=ArgSelDelim start=/`/ end=/`/
 endfunction
 
 augroup lsp_install
