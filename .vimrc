@@ -163,12 +163,14 @@ let g:netrw_banner = 0
 let g:netrw_special_syntax = 1
 " highlight line
 let g:netrw_bufsettings = "noma nomod nonu nobl nowrap ro nornu cursorlineopt=line"
-"do sort by folders first
-let g:netrw_sort_sequence = '[\/]$'
+"do sort by folders first - breaks already broken netrw...
+"let g:netrw_sort_sequence = '[\/]$'
+let g:netrw_sort_sequence = ''
 " sort case independent
 let g:netrw_sort_options = "i"
 " always get fresh dir listing
-let g:netrw_fastbrowse = 0
+" TODO this is a workaround for https://github.com/vim/vim/issues/9807
+let g:netrw_fastbrowse = 2
 " show errors only
 let g:netrw_errorlvl = 2
 " show errors as echoerr
@@ -715,7 +717,8 @@ augroup AutoResizeNetrw
 augroup END
 
 " toggle open file browser - ensure that it is only 20% wide
-nnoremap <silent> <leader><tab> :Lexplore<CR><bar>:call <SID>ResizeNetrw(0.2, '')<CR>
+" DISABLE
+" nnoremap <silent> <leader><tab> :Lexplore<CR><bar>:call <SID>ResizeNetrw(0.2, '')<CR>
 
 " if it is a folder: just switch to it
 " if it is a file: check if there is an open window, otherwise open an empty one
