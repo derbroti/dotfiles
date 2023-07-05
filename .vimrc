@@ -907,8 +907,8 @@ fun! s:GetBuffers()
         endif
         " TODO shorten names...
         " airline#util#shorten(getreg('/'), 300, 8)
-        let l:name = (empty(l:buf.name) ? '[No Name]' : l:buf.name)
-        call add(l:dict['items'], '('.l:buf.bufnr.') '.l:name)
+        let l:name = empty(l:buf.name) ? g:Unnamed_buffer_name : l:buf.name
+        call add(l:dict['items'], ' ('.l:buf.bufnr.') '.l:name.' ')
         call add(l:dict['bufnr'], l:buf.bufnr)
     endfor
     return l:dict
