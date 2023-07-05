@@ -1118,8 +1118,9 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> <leader>g] <plug>(lsp-next-diagnostic)
     " disabled for now - tagbar should take care of this
     " if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    " TODO any of these needed?
+    " TODO might be useful
     "nmap <buffer> K <plug>(lsp-hover)
+    " TODO any of these needed?
     "nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
     "nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
     "nmap <buffer> gi <plug>(lsp-implementation)
