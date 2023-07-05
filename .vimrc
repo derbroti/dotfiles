@@ -7,6 +7,7 @@
 " vim-lsp
 " asyncrun.vim
 " undotree
+" NERDTree
 
 
 set nocompatible
@@ -1177,3 +1178,31 @@ endfun
 
 
 """"""
+
+
+""""""""""""
+" nertree config
+"
+
+let NERDTreeAutoCenter = 0
+let NERDTreeNaturalSort = 1
+let NERDTreeBookmarksFile = '/dev/null'
+let NERDTreeMarkBookmarks = 0
+let NERDTreeShowBookmarks = 0
+" single: folder open; double: file open
+let NERDTreeMouseMode = 1
+let NERDTreeShowHidden=1
+let NERDTreeSortOrder = '[\/]$'
+" let vim-airline handle this
+"let NERDTreeStatusline = -1
+let NERDTreeWinSize = s:NetrwWidth
+let NERDTreeMinimalUI=1
+" open only what I tell you to open
+let NERDTreeCascadeOpenSingleChildDir=0
+let NERDTreeCustomOpenArgs = {'file': {'reuse': 'all', 'where': 'p', 'keepopen': 1, 'stay': 0}, 'dir': {}}
+
+au FileType nerdtree set cursorlineopt=line
+
+nnoremap <silent> <leader><tab> :NERDTreeToggle<cr>
+
+"""""""""
