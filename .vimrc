@@ -643,7 +643,8 @@ nnoremap <silent> [99;20~ :set expandtab!<cr>
 nnoremap <space> <nop>
 
 " new buffer
-nnoremap <silent> <leader>n :call <SID>CheckIfNetrwOnlyOpen()<cr>
+" DISABLE - no longer needed?
+" nnoremap <silent> <leader>n :call <SID>CheckIfNetrwOnlyOpen()<cr>
 " new tab
 nnoremap <silent> <leader>c :tabnew<CR>
 
@@ -663,7 +664,7 @@ nnoremap <silent> [99;16~ <C-w><Down>
 
 " keep split views equal in size - was automatic, is now manual
 " autocmd VimResized * wincmd =
-nnoremap <leader>= :wincmd =<cr>
+nnoremap <silent> <leader>= :wincmd =<cr>
 
 " spell check
 hi SpellBad   cterm=italic,undercurl ctermfg=None ctermbg=None ctermul=160
@@ -695,17 +696,23 @@ hi PmenuThumb cterm=none ctermfg=white ctermbg=darkblue
 " width in chars
 let s:NetrwWidth = 30
 
-fun s:ResizeNetrw(percent, win)
+fun s:ResizeFileBrowser(percent, win)
     :exec 'vert '.a:win.'res '.string(min([float2nr(floor(&columns * a:percent)), s:NetrwWidth]))
     let s:cur_nw_perc=a:percent
-    if exists("b:netrw_curdir")
-        let g:netrw_winsize = min([float2nr(floor(&columns * a:percent)), s:NetrwWidth])
-        call netrw#Call('NetrwRefresh', 1, w:netrw_treetop)
+    if &ft == 'netrw'
+        if exists("b:netrw_curdir")
+            let g:netrw_winsize = min([float2nr(floor(&columns * a:percent)), s:NetrwWidth])
+            call netrw#Call('NetrwRefresh', 1, w:netrw_treetop)
+        endif
+    elseif &ft == 'nerdtree'
+        call g:NERDTreeRender()
     endif
 endfun
 
 augroup AutoResizeNetrw
     fun s:AutoResizeNetrw()
+        " DISABLE
+        return
         let l:win = filter(range(1, winnr('$')), 'getwinvar(v:val, "&filetype") == "netrw"')
         for l:w in l:win
             call <SID>ResizeNetrw(0.2, l:w)
@@ -731,7 +738,7 @@ fun! NetrwOpenThis(islocal)
             :vnew
             " select previous window => the netrw browser
             wincmd p
-            call <SID>ResizeNetrw(0.2, '')
+            call <SID>ResizeFileBrowser(0.2, '')
         endif
     endif
     let l:dir = netrw#Call('NetrwBrowseChgDir', 1, l:word)
@@ -789,7 +796,7 @@ au FileType netrw nnoremap <buffer><silent> <leftmouse> <leftmouse>:call <SID>Le
 au FileType netrw nnoremap <buffer><silent> <2-leftmouse> :<C-u>call <SID>MouseClick(1, 1)<cr>
 
 fun s:NetrwAutoHScroll()
-    " DISABLED
+    " DISABLE
     return
 
     " go to first col in line
@@ -810,59 +817,80 @@ fun s:NetrwAutoHScroll()
     endif
 endfun
 
-fun s:relResizeNetrw(inc)
+fun s:relResizeFileBrowser(inc)
     let s:cur_nw_perc=get(s:, 'cur_nw_perc', 0.3) + a:inc
     :exec 'vert res '.string(float2nr(floor(&columns * s:cur_nw_perc)))
-    if exists("b:netrw_curdir")
-        let g:netrw_winsize = float2nr(floor(&columns * s:cur_nw_perc))
-        call netrw#Call('NetrwRefresh', 1, w:netrw_treetop)
+    if &ft == 'netrw'
+        if exists("b:netrw_curdir")
+            let g:netrw_winsize = float2nr(floor(&columns * s:cur_nw_perc))
+            call netrw#Call('NetrwRefresh', 1, w:netrw_treetop)
+        endif
+    elseif &ft == 'nerdtree'
+        call NERDTreeRender()
     endif
 endfun
 
 " scroll so far that as much as possible of the file name is visible
-" DISABLED
+" DISABLE
 " au CursorMoved * if &ft=='netrw'|:call <SID>NetrwAutoHScroll()|endif
 
 " widen the view - in case of long file names
-au FileType netrw nnoremap <buffer><silent> <tab> :call <SID>relResizeNetrw(0.05)<cr>
+au FileType netrw,nerdtree nnoremap <buffer><silent> <tab> :call <SID>relResizeFileBrowser(0.05)<cr>
 " shrink back to orig. size
-au FileType netrw nnoremap <buffer><silent> <S-tab> :call <SID>ResizeNetrw(0.2, '')<CR>
+au FileType netrw,nerdtree nnoremap <buffer><silent> <S-tab> :call <SID>ResizeFileBrowser(0.2, '')<CR>
 
-fun s:CheckIfOnlyWindowClose()
-    if winnr('$') == 1 && (&ft == 'netrw' || &ft == 'tagbar' || &ft == 'undotree')
-        if &diff | :cquit | else | :quit | endif
+
+fun s:CheckIfLastWindowToClose()
+    if &diff
+        :cquit
+        return
     endif
-endfun
 
-fun s:CheckIfNetrwOnlyOpen()
-    if &ft == 'netrw'
-        if winnr('$') == 1
-            :vnew
-            wincmd p
-            call <SID>ResizeNetrw(0.2, '')
+    let l:win = filter(range(1, winnr('$')), 'getwinvar(v:val, "&cursorlineopt") == "line"')
+    if winnr('$') == len(l:win) + 1
+        if tabpagenr('$') == 1
+            :quitall
         else
-            " do nothing
-        endif
-    else
-        if ! getbufvar('%', '&modified')
-            :enew
-        else
-            :echohl WarningMsg | echo "Have unsaved buffer..."| echohl None
+            " quit highest nr first, otherwise numbers would change
+            for l:w in reverse(l:win)
+                :exe l:w . 'wincmd q'
+            endfor
         endif
     endif
+
+    :quit
 endfun
+
+" DISABLE
+" fun s:CheckIfNetrwOnlyOpen()
+"     if &ft == 'netrw' || &ft == 'nerdtree'
+"         if winnr('$') == 1
+"             :vnew
+"             wincmd p
+"             call <SID>ResizeFileBrowser(0.2, '')
+"         else
+"             " do nothing
+"         endif
+"     else
+"         if ! getbufvar('%', '&modified')
+"             :enew
+"         else
+"             :echohl WarningMsg | echo "Can't switch buffer is not saved..." | echohl None
+"         endif
+"     endif
+" endfun
 
 " quit if we are the last window
 " also quits diff-mode
 " Note: to close a buffer without quitting: use :bd
 " (overwrites ex mode...)
-nnoremap <silent> Q :if &diff<bar>:cquit<bar>else<bar>:quit<bar>endif<cr><bar>:call <SID>CheckIfOnlyWindowClose()<cr>
+nnoremap <silent> Q :call <SID>CheckIfLastWindowToClose()<cr>
 
 "if we have a search in netrw, n would not work together with autohscroll...
 " <shift>+n just works...
 " this jumps down one line and then looks for the next match
 " Note: this will skip a further match in a line
-" DISABLED
+" DISABLE
 " au FileType netrw nnoremap <buffer><silent><expr> n &ft=='netrw' ? 'jn':'n'
 
 """""""""""""""""
@@ -1001,7 +1029,6 @@ fun s:ToggleTagbarUndotree(tag, undo)
     if a:tag && a:undo || ! a:tag && ! a:undo
         return " never display both or neither...
     endif
-
     if a:tag
         if undotree#UndotreeIsVisible()
             call undotree#UndotreeHide()
@@ -1062,8 +1089,8 @@ autocmd FileType c let b:vcm_tab_complete = "omni"
 """"""""""
 " vim-lsp config
 "
-
-if executable('clangd')
+" TODO maybe keep lsp on during merge but disable diagnostics
+if ! &diff && executable('clangd')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'clangd',
         \ 'cmd': {server_info->['clangd', '--function-arg-placeholders']},
@@ -1119,7 +1146,7 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> <leader>rn <plug>(lsp-rename)
     nmap <buffer> <leader>g[ <plug>(lsp-previous-diagnostic)
     nmap <buffer> <leader>g] <plug>(lsp-next-diagnostic)
-    " disabled for now - tagbar should take care of this
+    " disable for now - tagbar should take care of this
     " if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
     " TODO might be useful
     "nmap <buffer> K <plug>(lsp-hover)
