@@ -919,18 +919,19 @@ fun s:SelectBuffer(id, result)
         if ! getbufvar('%', '&modified')
             exec 'b ' . s:Buffers['bufnr'][a:result - 1]
         else
-            :echohl WarningMsg | echo "Have unsaved buffer..."| echohl None
+            :echohl WarningMsg | echo "Can't switch buffer is not saved..."| echohl None
         endif
     endif
 endfun
 
 fun s:BufferPopup()
     let s:Buffers = <SID>GetBuffers()
-    call popup_menu(s:Buffers['items'], #{title: "Select Buffer",
-                                        \ padding: [0,1,0,1],
-                                        \ borderchars: ['─', '│', '─', '│', '┌', '┐', '┘', '└'],
-                                        \ callback: '<SID>SelectBuffer'}
-                                        \ )
+    call popup_menu(s:Buffers['items'], { 'title': "Select Buffer",
+                                        \ 'padding': [0,0,0,0],
+                                        \ 'highlight': 'YankColor',
+                                        \ 'borderhighlight': ['YankColorBorder'],
+                                        \ 'borderchars': ['─', '│', '─', '│', '┌', '┐', '┘', '└'],
+                                        \ 'callback': '<SID>SelectBuffer'} )
 endfun
 
 " open buffer selection popup - the selected buffer is opened in the current window
