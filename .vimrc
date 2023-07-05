@@ -127,23 +127,73 @@ let g:airline#extensions#whitespace#mixed_indent_file_format = "[%s]⋮"
 """""""
 "
 " diff/merge config
+"
 
-fun s:diffview()
-    wincmd l " focus middle window
-    " always start on line 1
-    exec 'norm gg'
-    " next diff
-    nnoremap ] ]c
-    " prev diff
-    nnoremap [ [c
-    " ignore white space diffs
-    set diffopt+=iwhite
-    " show 2 lines around the diff
-    set diffopt+=context:2
-
-endfun
-
+" TODO: maybe an inverted-T layout could be nice?
+"       needs a lot of care to not be chaotic (window borders are currently intentionally
+"       non-intrusive)
 if &diff
+    let s:diff_taken = [0,0]
+
+    fun s:diff_sel_middle_win()
+        let l:id = get(win_findbuf(2), 0)
+        if l:id == 0 | echoerr "Could not find MERGE diff window." | return 0 | endif
+        :call win_gotoid(l:id)
+        return 1
+    endfun
+
+    fun s:diff_mine()
+        if ! s:diff_sel_middle_win() | return | endif
+        :diffget LOCAL
+    endfun
+    fun s:diff_theirs()
+        if ! s:diff_sel_middle_win() | return | endif
+        :diffget REMOTE
+    endfun
+    fun s:diff_add_mine()
+        if ! s:diff_sel_middle_win() | return | endif
+    endfun
+    fun s:diff_add_theirs()
+        if ! s:diff_sel_middle_win() | return | endif
+    endfun
+    fun s:diff_neither()
+        if ! s:diff_sel_middle_win() | return | endif
+    endfun
+
+    fun s:diffview()
+        " make filler lines (removed lines) less intrusive
+        set fillchars+=diff:.,
+        " make folds less intrusive
+        hi FoldColumn     ctermbg=none ctermfg=61
+        hi Folded         ctermbg=none ctermfg=61
+        " make diff more intrusive ;)
+        hi DiffAdd    cterm=none ctermfg=15 ctermbg=2
+        hi DiffChange cterm=none ctermfg=15 ctermbg=4
+        hi DiffDelete cterm=none ctermfg=8  ctermbg=9
+        hi DiffText   cterm=none ctermfg=0  ctermbg=3
+
+        call s:diff_sel_middle_win()
+
+        " always start on line 1
+        exec 'norm gg'
+        " next diff
+        nnoremap <tab> ]c
+        " prev diff
+        nnoremap <S-tab> [c
+        " select what to merge
+        nnoremap <silent><nowait> [ :call <SID>diff_mine()<cr>
+        nnoremap <silent><nowait> ] :call <SID>diff_theirs()<cr>
+        nnoremap <silent><nowait> { :call <SID>diff_add_mine()<cr>
+        nnoremap <silent><nowait> } :call <SID>diff_add_theirs()<cr>
+        nnoremap <silent><nowait> + :call <SID>diff_neither()<cr>
+        " ignore white space diffs
+        set diffopt+=iwhite
+        " show 2 lines around the diff
+        set diffopt+=context:2
+        " follow the wrabbit
+        set diffopt+=followwrap
+    endfun
+
     autocmd VimEnter * :call <SID>diffview()
 endif
 
