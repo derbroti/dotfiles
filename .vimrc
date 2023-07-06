@@ -329,7 +329,7 @@ augroup YankBank
     endfun
     fun s:ShowYank()
         let l:space_right = &columns - col('.')
-        let l:pop_opt = { 'title': "Select Yank",
+        let l:pop_opt = { 'title': " Select Yank ",
                         \ 'padding': [0,0,0,0],
                         \ 'borderchars': ['─', '│', '─', '│', '┌', '┐', '┘', '└'],
                         \ 'pos': 'botleft',
@@ -978,7 +978,7 @@ endfun
 
 fun s:BufferPopup()
     let s:Buffers = <SID>GetBuffers()
-    call popup_menu(s:Buffers['items'], { 'title': "Select Buffer",
+    call popup_menu(s:Buffers['items'], { 'title': " Select Buffer ",
                                         \ 'padding': [0,0,0,0],
                                         \ 'highlight': 'YankColor',
                                         \ 'borderhighlight': ['YankColorBorder'],
