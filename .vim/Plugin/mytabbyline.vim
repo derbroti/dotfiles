@@ -29,6 +29,8 @@ function! MyTabbyLine()
     "" let m = 0   " &modified counter
 
     let buflist = tabpagebuflist(i + 1)
+    let l:multi_buf = len(buflist) > 1
+
     " loop through each buffer in a tab
     let l:buf_nr = 1
     let l:act_buf = winnr()
@@ -54,7 +56,7 @@ function! MyTabbyLine()
           let bn = 'THEIRS(remote)'
         endif
         let bn = fnamemodify(bn, ':t')
-        if l:sel && l:buf_nr == l:act_buf
+        if l:sel && l:multi_buf && l:buf_nr == l:act_buf
           let n .= 'Buf#' . bn
         else
           let n .= '#' . bn
