@@ -123,6 +123,15 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline#extensions#whitespace#mixed_indent_format = "[%s]…"
 let g:airline#extensions#whitespace#mixed_indent_file_format = "[%s]⋮"
 
+"""""""
+" indent maps
+
+" (un-)indent with (<shift>)+<tab>
+nnoremap <silent> <tab> >>
+nnoremap <silent> <S-tab> <<
+vnoremap <silent> <tab> >gv
+vnoremap <silent> <S-tab> <gv
+
 
 """""""
 "
