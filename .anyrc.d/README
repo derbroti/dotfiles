@@ -1,0 +1,17 @@
+# Example symlink tree
+
+.anyrc.d
+├── .gitconfig -> ../.gitconfig
+├── .tmux -> ../.tmux/
+├── .tmux.conf -> ../.tmux.conf
+├── .vim
+│   ├── .vim -> ../.vim
+│   ├── autoload -> [...]
+│   ├── colors -> [...]
+│   ├── plugin -> [...]
+│   └── spell -> [...]
+├── .viminfo -> ../.viminfo
+├── .vimrc -> ../.vimrc
+├── .zsh -> ../.zsh/
+└── .zshrc -> ../.zshrc
+

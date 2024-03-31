@@ -1,0 +1,40 @@
+# Based on: https://github.com/amaya382/anyrc/blob/master/example/.anyrc
+
+CURR_SHELL="$(readlink /proc/$$/exe)"
+
+# For before loading shell
+## bash - but not really
+# based on: https://blog.liang2.tw/posts/2017/01/without-chsh/
+bash() {
+  ZSH_BIN=$(which zsh)
+
+  # The replacement is only done in non-zsh login interactive shell in
+  # # SSH connection and zsh executable exists.
+  if [ "$SHELL" != "$ZSH_BIN" -a -n "$SSH_TTY" -a -x "$ZSH_BIN" ]
+  then
+    # we first check whether zsh can be executed, otherwise the
+    # replacement will cause immediate crash at login (not fun)
+    if "$ZSH_BIN" -c 'echo "Test zsh running" >/dev/null'
+    then
+      export SHELL="$ZSH_BIN"
+      #echo "One can launch the zsh shell by 'exec -l \$SHELL -l'"
+      PRINT_MOTD=yes exec -l $SHELL -l # launch the zsh login shell
+      return
+    else
+      echo "Failed to launch zsh shell."
+    fi
+  fi
+
+  echo "Zsh not found. Fall back to default shell $SHELL ..."
+  echo ""
+  PRINT_MOTD=yes $(sh -c 'which bash') --rcfile "${ANYRC_HOME}/.bashrc"
+}
+
+## zsh conf
+export ZDOTDIR="${ANYRC_HOME}"
+
+# For after loading shell
+## vim
+# ( '.vim' folder portability configured in .vimrc)
+export VIMINIT="let \$MYVIMRC='${ANYRC_HOME}/.vimrc' | source \${MYVIMRC}"
+
