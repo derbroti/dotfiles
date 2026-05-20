@@ -1,6 +1,10 @@
-[submodule ".vim/pack/dist/start/vim-airline"]
-	path = .vim/pack/dist/start/vim-airline
-	url = git@github.com:derbroti/vim-airline.git
 [submodule ".tmux/libc"]
 	path = .tmux/libc
 	url = git@github.com:derbroti/libc.git
+
+#[submodule ".vim/pack/dist/start/tagbar"]         - https://github.com/derbroti/tagbar
+#[submodule ".vim/pack/dist/start/vim-airline"]    - https://github.com/derbroti/vim-airline
+#[submodule ".vim/pack/dist/start/vim-lsp"]        - https://github.com/derbroti/vim-lsp
+#[submodule ".vim/pack/dist/start/asyncrun.vim"]   - https://github.com/derbroti/asyncrun.vim.git
+#[submodule ".vim/pack/dist/start/undotree"]       - https://github.com/mbbill/undotree
+#[submodule ".vim/pack/dist/start/NERDTree"]       - https://github.com/derbroti/NERDtree

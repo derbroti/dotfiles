@@ -1,34 +1,51 @@
 [user]
-	name = Mirko
-	email = mpalmer@mpi-inf.mpg.de
+    name = Mirko Palmer
+    email = mirko@palmer.id
 [core]
-	excludesfile = /Users/Mirko/.gitignore_global
-	precomposeUnicode = true
-	pager = less -+F -R -+X
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[filter "media"]
-	clean = git media clean %f
-	smudge = git media smudge %f
-	required = true
-[commit]
-	template = /Users/Mirko/.stCommitMsg
-[filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-[pull]
-	ff = only
-[init]
-	defaultBranch = master
+    excludesfile = ~/.gitignore_global
+    precomposeUnicode = true
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    features = "colors_bk"
+[interactive]
+    diffFilter = delta --color-only
 [merge]
+    conflictStyle = zdiff3
+[filter "lfs"]
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+[pull]
+    ff = only
+    rebase = merges
+[init]
+    defaultBranch = main
+[merge]
+    tool = vimdiff
+#[difftool "vimdiff"]
+#    cmd = vimdiff \"$LOCAL\" \"$REMOTE\"
+#[mergetool "vimdiff"]
+#    cmd = vimdiff \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+#	layout = LOCAL,BASE,REMOTE / MERGED
+[diff]
+    algorithm = patience
+    renameLimit = 10000
+    colorMoved = default
 	tool = vimdiff
-[difftool "vimdiff"]
-	cmd = vimdiff \"$LOCAL\" \"$REMOTE\"
-[mergetool "vimdiff"]
-	cmd = vimdiff \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+[rebase]
+    missingCommitsCheck = error
+[push]
+    # push only current branch
+    default = simple
+    recurseSubmodules = on-demand
+[rerere]
+    # remember last merge conflice resolution
+    enabled = true
+[delta "colors_bk"]
+    side-by-side = true
+
+[credential]
+	helper = store
+[difftool]
+	prompt = false

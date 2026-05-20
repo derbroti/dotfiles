@@ -4,6 +4,8 @@ export LC_CTYPE=en_US.UTF-8
 
 export PAGER=less
 
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # used for anyrc to specify a different path for the config files
 if [[ -v ZDOTDIR ]]; then
     export ZSH=$ZDOTDIR/.zsh
@@ -71,21 +73,28 @@ compinit -i
 # End of lines added by compinstall
 
 export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_ENV_HINTS=1
+
 # arm brew
 export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
 # more recent bc
 export PATH="/opt/homebrew/opt/bc/bin:$PATH"
 
-export PICO_SDK_PATH=/Users/Mirko/Projects/rpi-pico/pico-sdk
-
-# Go Path related exports
-export GOPATH=/Users/Mirko/Projects/GO
 export PATH=$PATH:$GOPATH/bin
+
+export PATH=$PATH:/usr/local/go/bin
 
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 
-# source github token so that we do not accidentially leak it
-# via dotfiles repo
+# source github token so that we do not accidentially leak it via dotfiles repo
 source $ZSH/.github.token
+
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
+# Created by `pipx` on 2024-04-24 13:40:51
+export PATH="$PATH:/Users/palmerm1/.local/bin"
+
+# rust / cargo
+export PATH="${PATH}:/Users/palmerm1/.cargo/bin"
 

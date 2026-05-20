@@ -6,8 +6,8 @@ promptinit
 map_exit_code() {
     local description
 
+    # Signals are 128 + signal value, we translate back to the signal name
     case ${1} in
-      # Signals are 128 + signal value, we translate back to the signal name
       $((128 + 1))  ) description="SIGHUP";;
       $((128 + 2))  ) description="SIGINT";;
       $((128 + 3))  ) description="SIGQUIT";;
@@ -44,5 +44,5 @@ map_exit_code() {
     echo -n $description
 }
 
-RPROMPT='%(0?..%F{88}$(map_exit_code $?)%f)'
-PROMPT='%(!.%F{124}.%F{246})%n%F{252}@%f%B%F{104}%m%b%f:%(4~|…/%3~|%~)%# '
+RPROMPT='%(0?..%F{124}$(map_exit_code $?)%f)'
+PROMPT='%(!.%F{124}.%F{246})%n%F{252}@%f%B%F{104}%m%b%f:%(4~|…/%3~|%~)%F{151}%#%f '
